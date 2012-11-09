@@ -20,30 +20,21 @@ import hotciv.framework.*;
 */
 
 public class GameImpl implements Game {
-  public Tile getTileAt( Position p ) { return null; }
+  public Tile getTileAt( Position p ) {
+      if (p.getRow() == 1 && p.getColumn()==0)
+          return new TileImpl("ocean");
+      if (p.getRow() == 0 && p.getColumn() == 1)
+          return new TileImpl("hills");
+      else return null;
+  }
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) {
-      return new City() {
-          @Override
-          public Player getOwner() {
-              return Player.RED;
-          }
-
-          @Override
-          public int getSize() {
-              return 0;  //To change body of implemented methods use File | Settings | File Templates.
-          }
-
-          @Override
-          public String getProduction() {
-              return null;  //To change body of implemented methods use File | Settings | File Templates.
-          }
-
-          @Override
-          public String getWorkforceFocus() {
-              return null;  //To change body of implemented methods use File | Settings | File Templates.
-          }
-      }; }
+      if(p.getColumn()==1 && p.getRow() == 1)
+          return new CityImpl(Player.RED);
+      if(p.getColumn() == 1 && p.getRow() == 4)
+          return new CityImpl(Player.BLUE);
+      else return null;
+  }
   public Player getPlayerInTurn() { return null; }
   public Player getWinner() { return null; }
   public int getAge() { return 0; }

@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 /** Skeleton class for AlphaCiv test cases
 
-   This source code is from the book 
+   This source code is from the book                      1
      "Flexible, Reliable Software:
        Using Patterns and Agile Development"
      published 2010 by CRC Press.
@@ -37,4 +37,27 @@ public class TestAlphaCiv {
     assertEquals( "City at (1,1) should be owned by red",
       Player.RED, p );
   }
+
+  @Test
+  public void shouldHaveBlueCityAt4_1() {
+      City c = game.getCityAt(new Position(4,1));
+      assertNotNull("There should be a city at (4,1)", c);
+      Player p = c.getOwner();
+      assertEquals( "City at (4,1) should be owned by blue",
+              Player.BLUE, p );
+  }
+
+    @Test
+    public void ShouldHaveTileOceanAt1_0() {
+        Tile t = game.getTileAt(new Position(1,0));
+        assertNotNull("Tile should be not null", t);
+        assertEquals("Tile should be ocean",
+                "ocean",t.getTypeString());
+    }
+    @Test
+    public void ShouldHaveHillTileAt0_1() {
+        Tile t = game.getTileAt(new Position(0,1));
+        assertNotNull("Tile should be not null", t);
+        assertEquals("Tile is hills", "hills",t.getTypeString());
+    }
 }
