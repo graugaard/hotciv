@@ -21,19 +21,13 @@ import hotciv.framework.*;
 
 public class GameImpl implements Game {
   public Tile getTileAt( Position p ) {
-      //TODO: fake it code
-      return new Tile() {
-
-          @Override
-          public Position getPosition() {
-              return null;  //To change body of implemented methods use File | Settings | File Templates.
-          }
-
-          @Override
-          public String getTypeString() {
-              return "ocean";  //To change body of implemented methods use File | Settings | File Templates.
-          }
-      };
+      if (p.getRow() == 1 && p.getColumn()==0)
+          return new TileImpl("ocean");
+      else if (p.getRow() == 0 && p.getColumn() == 1)
+          return new TileImpl("hills");
+      else if (p.getRow() == 2 && p.getColumn() == 2)
+          return new TileImpl("mountain");
+      else return new TileImpl("plains");
   }
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) {

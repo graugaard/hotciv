@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 /** Skeleton class for AlphaCiv test cases
 
-   This source code is from the book 
+   This source code is from the book                      1
      "Flexible, Reliable Software:
        Using Patterns and Agile Development"
      published 2010 by CRC Press.
@@ -37,4 +37,42 @@ public class TestAlphaCiv {
     assertEquals( "City at (1,1) should be owned by red",
       Player.RED, p );
   }
+
+  @Test
+  public void shouldHaveBlueCityAt4_1() {
+      City c = game.getCityAt(new Position(4,1));
+      assertNotNull("There should be a city at (4,1)", c);
+      Player p = c.getOwner();
+      assertEquals( "City at (4,1) should be owned by blue",
+              Player.BLUE, p );
+  }
+
+    @Test
+    public void ShouldHaveTileOceanAt1_0() {
+        Tile t = game.getTileAt(new Position(1,0));
+        assertNotNull("Tile should be not null", t);
+        assertEquals("Tile should be ocean",
+                "ocean",t.getTypeString());
+    }
+    @Test
+    public void ShouldHaveHillTileAt0_1() {
+        Tile t = game.getTileAt(new Position(0,1));
+        assertNotNull("Tile should be not null", t);
+        assertEquals("Tile is hills", "hills",t.getTypeString());
+    }
+    @Test
+    public void ShouldHaveMountainAt2_2() {
+        Tile t = game.getTileAt(new Position(2,2));
+        assertNotNull("Tile should exsist at (2,2)", t);
+        assertEquals("Tile should be mountain at (2,2)", "mountain",t.getTypeString());
+    }
+    @Test
+    public void ShouldBePlainsAt4_5And5_6() {
+        Tile t = game.getTileAt(new Position(4,5));
+        assertNotNull("Tile should exsist at (4,5)", t);
+        assertEquals("Tile should be mountain at (4,5)", "plains",t.getTypeString());
+        t = game.getTileAt(new Position(5,6));
+        assertNotNull("Tile should exsist at (5,6)", t);
+        assertEquals("Tile should be mountain at (5,6)", "plains",t.getTypeString());
+    }
 }
