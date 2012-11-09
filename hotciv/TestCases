@@ -1,0 +1,24 @@
+Test cases
+    Red has a city at position (1,1)
+    Blue has a city at position (4,1)
+    There are 2 players: Red and Blue
+    tile(1,0) is ocean
+    tile(0,1) is hills
+    tile(2,2) is mountains
+    Attacking unit always wins
+    Only 1 unit pr tile
+    red has 1 archer at (2,0)
+    red has 1 settler at (4,3)
+    blue has 1 legion at (3,2)
+    Cities can produce archers
+    Cities can produce legions
+    Cities can produce settlers
+    Cities get 6 production pr. turn
+    Red has city at (1,1)
+    Blue has city at (4,1)
+    If city has enough recources, it produces unit
+    When city spawn unit, place it on city tile if empty of units
+    When city spawn unit, place it on first adjacent empty tile if city not empty
+        starting due north of city and going clockwise.
+    Game starts at age 4000 bc and each round advanced age 100 years
+    Red wins at year 3000 bc
