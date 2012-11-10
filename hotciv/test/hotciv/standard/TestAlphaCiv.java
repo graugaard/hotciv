@@ -52,27 +52,31 @@ public class TestAlphaCiv {
         Tile t = game.getTileAt(new Position(1,0));
         assertNotNull("Tile should be not null", t);
         assertEquals("Tile should be ocean",
-                "ocean",t.getTypeString());
+                GameConstants.OCEANS,t.getTypeString());
     }
     @Test
     public void ShouldHaveHillTileAt0_1() {
         Tile t = game.getTileAt(new Position(0,1));
         assertNotNull("Tile should be not null", t);
-        assertEquals("Tile is hills", "hills",t.getTypeString());
+        assertEquals("Tile is hills",
+                GameConstants.HILLS,t.getTypeString());
     }
     @Test
     public void ShouldHaveMountainAt2_2() {
         Tile t = game.getTileAt(new Position(2,2));
         assertNotNull("Tile should exsist at (2,2)", t);
-        assertEquals("Tile should be mountain at (2,2)", "mountain",t.getTypeString());
+        assertEquals("Tile should be mountain at (2,2)",
+                GameConstants.MOUNTAINS,t.getTypeString());
     }
     @Test
     public void ShouldBePlainsAt4_5And5_6() {
         Tile t = game.getTileAt(new Position(4,5));
         assertNotNull("Tile should exsist at (4,5)", t);
-        assertEquals("Tile should be mountain at (4,5)", "plains",t.getTypeString());
+        assertEquals("Tile should be plains at (4,5)",
+                GameConstants.PLAINS,t.getTypeString());
         t = game.getTileAt(new Position(5,6));
         assertNotNull("Tile should exsist at (5,6)", t);
-        assertEquals("Tile should be mountain at (5,6)", "plains",t.getTypeString());
+        assertEquals("Tile should be plains at (5,6)",
+                GameConstants.PLAINS,t.getTypeString());
     }
 }

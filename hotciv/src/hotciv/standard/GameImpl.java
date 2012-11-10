@@ -22,12 +22,12 @@ import hotciv.framework.*;
 public class GameImpl implements Game {
   public Tile getTileAt( Position p ) {
       if (p.getRow() == 1 && p.getColumn()==0)
-          return new TileImpl("ocean");
+          return new TileImpl(GameConstants.OCEANS);
       else if (p.getRow() == 0 && p.getColumn() == 1)
-          return new TileImpl("hills");
+          return new TileImpl(GameConstants.HILLS);
       else if (p.getRow() == 2 && p.getColumn() == 2)
-          return new TileImpl("mountain");
-      else return new TileImpl("plains");
+          return new TileImpl(GameConstants.MOUNTAINS);
+      else return new TileImpl(GameConstants.PLAINS);
   }
   public Unit getUnitAt( Position p ) { return null; }
   public City getCityAt( Position p ) {
