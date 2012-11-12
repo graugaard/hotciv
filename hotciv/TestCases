@@ -2,10 +2,10 @@ Test cases
 k   Red has a city at position (1,1)
 k   Blue has a city at position (4,1)
     There are 2 players: Red and Blue
-    tile(1,0) is ocean
-    tile(0,1) is hills
-    tile(2,2) is mountains
-    remaining tiles are plains
+k   tile(1,0) is ocean
+k   tile(0,1) is hills
+k   tile(2,2) is mountains
+k   remaining tiles are plains
     Attacking unit always wins
     Only 1 unit pr tile
     red has 1 archer at (2,0)
