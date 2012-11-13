@@ -8,15 +8,15 @@ k   tile(2,2) is mountains
 k   remaining tiles are plains
     Attacking unit always wins
     Only 1 unit pr tile
-    red has 1 archer at (2,0)
-    red has 1 settler at (4,3)
-    blue has 1 legion at (3,2)
+k   red has 1 archer at (2,0)
+k   red has 1 settler at (4,3)
+k   blue has 1 legion at (3,2)
     Cities can produce archers
     Cities can produce legions
     Cities can produce settlers
     Cities get 6 production pr. turn
-    Red has city at (1,1)
-    Blue has city at (4,1)
+k   Red has city at (1,1)
+k   Blue has city at (4,1)
     If city has enough recources, it produces unit
     When city spawn unit, place it on city tile if empty of units
     When city spawn unit, place it on first adjacent empty tile if city not empty

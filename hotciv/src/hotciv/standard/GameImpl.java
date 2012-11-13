@@ -20,16 +20,45 @@ import hotciv.framework.*;
 */
 
 public class GameImpl implements Game {
-  public Tile getTileAt( Position p ) {
-      if (p.getRow() == 1 && p.getColumn()==0)
-          return new TileImpl(GameConstants.OCEANS);
-      else if (p.getRow() == 0 && p.getColumn() == 1)
-          return new TileImpl(GameConstants.HILLS);
-      else if (p.getRow() == 2 && p.getColumn() == 2)
-          return new TileImpl(GameConstants.MOUNTAINS);
-      else return new TileImpl(GameConstants.PLAINS);
+
+    private Unit[][] units;
+    private Tile[][] tiles;
+
+    /**
+     * Make a new Alphaciv game, fresh to be used
+     */
+    public GameImpl() {
+        int wSize = GameConstants.WORLDSIZE;
+        setupUnits(wSize);
+        setupTiles(wSize);
+    }
+
+    // setup the game world tiles
+    private void setupTiles(int worldSize) {
+        tiles = new Tile[worldSize][worldSize];
+        for(int i = 0; i < worldSize; i++)
+            for(int j = 0; j < worldSize; j++)
+                tiles[i][j] = new TileImpl(GameConstants.PLAINS);
+        tiles[1][0] = new TileImpl(GameConstants.OCEANS);
+        tiles[0][1] = new TileImpl(GameConstants.HILLS);
+        tiles[2][2] = new TileImpl(GameConstants.MOUNTAINS);
+    }
+    // set up the initial units at in the game
+    private void setupUnits(int worldSize) {
+        units = new Unit[worldSize][worldSize];
+        units[4][3] = new UnitImpl(GameConstants.SETTLER,
+                Player.RED);
+        units[2][0] = new UnitImpl(GameConstants.ARCHER,
+                Player.RED);
+        units[3][2] = new UnitImpl(GameConstants.LEGION,
+                Player.BLUE);
+    }
+    public Tile getTileAt( Position p ) {
+        return tiles[p.getRow()][p.getColumn()];
   }
-  public Unit getUnitAt( Position p ) { return null; }
+  public Unit getUnitAt( Position p ) {
+      return units[p.getRow()][p.getColumn()];
+  }
   public City getCityAt( Position p ) {
       if(p.getColumn()==1 && p.getRow() == 1)
           return new CityImpl(Player.RED);
