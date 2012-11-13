@@ -8,9 +8,9 @@ import hotciv.framework.*;
  * Date: 11/9/12
  * Time: 1:25 PM
  */
-public class CityImpl implements City{
+public class CityImpl implements City {
     private Player owner;
-    public CityImpl(Player owner)            {
+    public CityImpl(Player owner) {
         this.owner = owner;
     }
     public int getSize() {
