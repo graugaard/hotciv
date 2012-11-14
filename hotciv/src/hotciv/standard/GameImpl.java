@@ -51,12 +51,26 @@ public class GameImpl implements Game {
     public Player getWinner() { return null; }
     public int getAge() { return 0; }
     public boolean moveUnit( Position from, Position to ) {
-        return false;
+        Unit u = getUnitAt(from);
+        if (u != null) {
+           if (dist(from,to) > u.getMoveCount())
+               return false;
+           else {
+               u.setMoveCount(0);
+               return true;
+           }
+        }
+        else return false;
     }
     public void endOfTurn() {}
     public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
     public void changeProductionInCityAt( Position p, String unitType ) {}
     public void performUnitActionAt( Position p ) {}
+    public int dist(Position p1, Position p2) {
+        int x = Math.abs(p1.getRow()-p2.getRow());
+        int y = Math.abs(p1.getColumn() - p2.getColumn());
+        return Math.max(x,y);
+    }
 
     // setup the game world tiles
     private void setupTiles(int worldSize) {
@@ -72,6 +86,9 @@ public class GameImpl implements Game {
     // set up the initial units at in the game
     private void setupUnits(int worldSize) {
         units = new Unit[worldSize][worldSize];
+        for (int i = 0; i < worldSize; i++)
+            for(int j = 0; j < worldSize; j++)
+                units[i][j] = null;
         units[4][3] = new UnitImpl(GameConstants.SETTLER,
                 Player.RED);
         units[2][0] = new UnitImpl(GameConstants.ARCHER,

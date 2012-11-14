@@ -121,5 +121,13 @@ public interface Game {
    * @param p the position of a unit that must perform its action.
    * Nothing happens in case the unit has no associated action.
    */
-  public void performUnitActionAt( Position p );  
+  public void performUnitActionAt( Position p );
+
+    /**
+     *  The distance in tiles between the two positions
+     *  Precondition: the positions are valid in the game.
+     *  @param p1,p2 the two positions.
+     *  @return the distance between the two positions.
+     */
+    public int dist(Position p1, Position p2);
 }
