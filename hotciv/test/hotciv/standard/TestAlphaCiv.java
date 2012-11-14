@@ -110,4 +110,23 @@ public class TestAlphaCiv {
         assertEquals("Unit at (3,2) belongs to blue",
                 Player.BLUE,u.getOwner());
     }
+
+    @Test
+    public void shouldHaveDistance2From3_2To4_2() {
+        Position p1 = new Position(2,3);
+        Position p2 = new Position(4,2);
+        assertEquals("distance (2,3) to (4,2) is 2",2,
+                game.dist(p1,p2));
+    }
+
+    @Test
+    public void ShouldHaveUnitMoveLimit1() {
+        // we assume red starts the game
+        // red archer should be able to move
+        assertTrue("legal move", game.moveUnit(new Position(2,0), new Position(1,1)));
+        // cant move 2 or more in one turn
+        assertFalse("units can't move more than 1",game.moveUnit(new Position(4,3), new Position(5,4)));
+        // move limit expended, has moved 2
+        assertFalse("units can't move 1 after moving 1",game.moveUnit(new Position(1,1), new Position(0,1)));
+    }
 }

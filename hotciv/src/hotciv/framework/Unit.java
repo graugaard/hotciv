@@ -53,4 +53,9 @@ public interface Unit {
    * @return attack strength
    */
   public int getAttackingStrength();
+
+    /**  dec the movecount of the unit
+     *   Precondition: 0<=amount
+     */
+    public void setMoveCount(int amount);
 }
