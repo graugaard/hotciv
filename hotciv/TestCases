@@ -1,25 +1,32 @@
 Test cases
 k   Red has a city at position (1,1)
 k   Blue has a city at position (4,1)
-    There are 2 players: Red and Blue
+k   There are 2 players: Red and Blue
 k   tile(1,0) is ocean
 k   tile(0,1) is hills
 k   tile(2,2) is mountains
 k   remaining tiles are plains
-    Attacking unit always wins
-    Only 1 unit pr tile
+k   Attacking unit always wins
+k   Only 1 unit pr tile
 k   red has 1 archer at (2,0)
 k   red has 1 settler at (4,3)
 k   blue has 1 legion at (3,2)
-    Cities can produce archers
-    Cities can produce legions
-    Cities can produce settlers
+k   Cities can produce archers
+k   Cities can produce legions
+k   Cities can produce settlers
     Cities get 6 production pr. turn
+k   Cities has population size 1
 k   Red has city at (1,1)
 k   Blue has city at (4,1)
     If city has enough recources, it produces unit
     When city spawn unit, place it on city tile if empty of units
     When city spawn unit, place it on first adjacent empty tile if city not empty
         starting due north of city and going clockwise.
-    Game starts at age 4000 bc and each round advanced age 100 years
-    Red wins at year 3000 bc
+k   Game starts at age 4000 bc and each round advanced age 100 years
+k   Red wins at year 3000 bc
+k   Red can't move blue's units
+k   blue can't move red's units
+k   first player is red
+k   player change on end turn
+k   Cities produce settlers if nothing is chosen
+k   units can move again when it's a new round

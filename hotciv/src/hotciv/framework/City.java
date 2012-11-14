@@ -43,4 +43,9 @@ public interface City {
    */
   public String getWorkforceFocus();
 
+    /** change which unit is being produced in the city.
+     *  @param unitType a string depicting the type of unit to
+     *  produce, can only be chosen from GameConstants.
+     */
+  public void setProduction(String unitType);
 }

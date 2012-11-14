@@ -57,5 +57,5 @@ public interface Unit {
     /**  dec the movecount of the unit
      *   Precondition: 0<=amount
      */
-    public void setMoveCount(int amount);
+  public void setMoveCount(int amount);
 }

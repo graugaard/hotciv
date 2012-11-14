@@ -23,6 +23,9 @@ public class GameImpl implements Game {
 
     private Unit[][] units;
     private Tile[][] tiles;
+    private City[][] cities;
+    private Player playerInTurn;
+    private int age;
 
     /**
      * Make a new Alphaciv game, fresh to be used
@@ -31,6 +34,9 @@ public class GameImpl implements Game {
         int wSize = GameConstants.WORLDSIZE;
         setupUnits(wSize);
         setupTiles(wSize);
+        setupCities(wSize);
+        playerInTurn = Player.RED;
+        age = -4000;
     }
 
 
@@ -41,35 +47,64 @@ public class GameImpl implements Game {
         return units[p.getRow()][p.getColumn()];
     }
     public City getCityAt( Position p ) {
-        if(p.getColumn()==1 && p.getRow() == 1)
-            return new CityImpl(Player.RED);
-        if(p.getColumn() == 1 && p.getRow() == 4)
-            return new CityImpl(Player.BLUE);
+        return cities[p.getRow()][p.getColumn()];
+    }
+    public Player getPlayerInTurn() { return playerInTurn; }
+    public Player getWinner() {
+        if(age==-3000)
+            return Player.RED;
         else return null;
     }
-    public Player getPlayerInTurn() { return null; }
-    public Player getWinner() { return null; }
-    public int getAge() { return 0; }
+    public int getAge() { return age; }
     public boolean moveUnit( Position from, Position to ) {
         Unit u = getUnitAt(from);
         if (u != null) {
-           if (dist(from,to) > u.getMoveCount())
-               return false;
-           else {
-               u.setMoveCount(0);
-               return true;
-           }
+            if (dist(from,to) > u.getMoveCount())
+                return false;
+            else if (u.getOwner() != playerInTurn)
+                return false;
+            else if (getUnitAt(to) != null && getUnitAt(to).getOwner() == u.getOwner())
+                return false;
+
+            else {
+                u.setMoveCount(0);
+                units[to.getRow()][to.getColumn()] = u;
+                units[from.getRow()][from.getColumn()] = null;
+                return true;
+            }
         }
         else return false;
     }
-    public void endOfTurn() {}
+    public void endOfTurn() {
+        if (playerInTurn == Player.RED) {
+            playerInTurn = Player.BLUE;
+        }
+        else {
+            playerInTurn = Player.RED;
+            age += 100;
+            resetMove();
+        }
+    }
     public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
-    public void changeProductionInCityAt( Position p, String unitType ) {}
+    public void changeProductionInCityAt( Position p, String unitType ) {
+        City c = getCityAt(p);
+        c.setProduction(unitType);
+
+    }
     public void performUnitActionAt( Position p ) {}
     public int dist(Position p1, Position p2) {
         int x = Math.abs(p1.getRow()-p2.getRow());
         int y = Math.abs(p1.getColumn() - p2.getColumn());
         return Math.max(x,y);
+    }
+    //used to reset all units movevalue at the beginning of a new round
+    public void resetMove(){
+        int size = GameConstants.WORLDSIZE;
+        for(int i = 0; i < size; i++)
+            for(int j = 0; j < size; j++)
+                if (units[i][j]!= null)
+                    units[i][j].setMoveCount(1);
+
     }
 
     // setup the game world tiles
@@ -95,5 +130,15 @@ public class GameImpl implements Game {
                 Player.RED);
         units[3][2] = new UnitImpl(GameConstants.LEGION,
                 Player.BLUE);
+    }
+    // set up the initial cities in the game
+    private void setupCities(int worldSize) {
+        cities = new City[worldSize][worldSize];
+        for (int i = 0; i < worldSize; i++)
+            for (int j = 0; j < worldSize; j++)
+                cities[i][j] = null;
+        cities[1][1] = new CityImpl(Player.RED);
+        cities[4][1] = new CityImpl(Player.BLUE);
+
     }
 }

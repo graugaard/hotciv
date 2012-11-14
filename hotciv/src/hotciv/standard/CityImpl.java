@@ -10,15 +10,19 @@ import hotciv.framework.*;
  */
 public class CityImpl implements City {
     private Player owner;
+    private String producing;
+
     public CityImpl(Player owner) {
         this.owner = owner;
+        producing = GameConstants.SETTLER;
     }
+
     public int getSize() {
-        return 0;
+        return 1;
     }
 
     public String getProduction() {
-        return null;
+        return producing;
     }
 
     public Player getOwner() {
@@ -28,4 +32,10 @@ public class CityImpl implements City {
     public String getWorkforceFocus() {
         return null;
     }
+
+    public void setProduction(String unitType){
+        producing = unitType;
+    }
+
+
 }
