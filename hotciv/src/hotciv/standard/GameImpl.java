@@ -26,6 +26,7 @@ public class GameImpl implements Game {
     private City[][] cities;
     private Player playerInTurn;
     private int age;
+    private boolean firstRound;
 
     /**
      * Make a new Alphaciv game, fresh to be used
@@ -37,6 +38,7 @@ public class GameImpl implements Game {
         setupCities(wSize);
         playerInTurn = Player.RED;
         age = -4000;
+        firstRound = true;
     }
 
 
@@ -78,11 +80,15 @@ public class GameImpl implements Game {
     public void endOfTurn() {
         if (playerInTurn == Player.RED) {
             playerInTurn = Player.BLUE;
+            if(!firstRound)
+                produce(Player.BLUE);
         }
         else {
             playerInTurn = Player.RED;
             age += 100;
+            produce(Player.RED);
             resetMove();
+            firstRound = false;
         }
     }
     public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
@@ -140,5 +146,51 @@ public class GameImpl implements Game {
         cities[1][1] = new CityImpl(Player.RED);
         cities[4][1] = new CityImpl(Player.BLUE);
 
+    }
+
+    private void produce(Player p1) {
+        int ws = GameConstants.WORLDSIZE;
+        for(int i = 0; i< ws; i++)
+            for(int j = 0; j < ws; j++) {
+                City c =  getCityAt(new Position(i,j));
+                if (c != null && c.getOwner() == p1) {
+                    c.addProduction(6);
+                    String prod = c.getProduction();
+                    if(c.getProductionValue()>= unitCost(prod)){
+                        setUnit(new UnitImpl(prod, p1), new Position(i,j));
+                        c.addProduction(-unitCost(prod));
+                    }
+
+                }
+            }
+    }
+    private int unitCost(String type) {
+        if (type.equals(GameConstants.ARCHER))
+            return 10;
+        else if (type.equals(GameConstants.LEGION))
+            return 15;
+        else return 30;
+    }
+    private void setUnit(Unit u, Position center) {
+        int x,y; x = center.getRow();
+        y = center.getColumn();
+        if(getUnitAt(center) == null)
+            units[center.getRow()][center.getColumn()] = u;
+        else if (units[x-1][y] == null)
+            units[x-1][y] = u;
+        else if (units[x-1][y+1] == null)
+            units[x-1][y+1] = u;
+        else if (units[x][y+1] == null)
+            units[x][y+1] = u;
+        else if (units[x+1][y+1] == null)
+            units[x+1][y+1] = u;
+        else if (units[x+1][y] == null)
+            units[x+1][y] = u;
+        else if (units[x+1][y-1] == null)
+            units[x+1][y-1] = u;
+        else if (units[x][y-1] == null)
+            units[x][y-1] = u;
+        else
+            units[x-1][y-1] = u;
     }
 }

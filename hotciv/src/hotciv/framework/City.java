@@ -48,4 +48,7 @@ public interface City {
      *  produce, can only be chosen from GameConstants.
      */
   public void setProduction(String unitType);
+
+    public void addProduction(int amount);
+    public int getProductionValue();
 }

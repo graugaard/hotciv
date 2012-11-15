@@ -14,13 +14,13 @@ k   blue has 1 legion at (3,2)
 k   Cities can produce archers
 k   Cities can produce legions
 k   Cities can produce settlers
-    Cities get 6 production pr. turn
+k    Cities get 6 production pr. turn
 k   Cities has population size 1
 k   Red has city at (1,1)
 k   Blue has city at (4,1)
-    If city has enough recources, it produces unit
-    When city spawn unit, place it on city tile if empty of units
-    When city spawn unit, place it on first adjacent empty tile if city not empty
+k    If city has enough recources, it produces unit
+k    When city spawn unit, place it on city tile if empty of units
+k    When city spawn unit, place it on first adjacent empty tile if city not empty
         starting due north of city and going clockwise.
 k   Game starts at age 4000 bc and each round advanced age 100 years
 k   Red wins at year 3000 bc

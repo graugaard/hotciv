@@ -23,6 +23,8 @@ import static org.junit.Assert.*;
  */
 public class TestAlphaCiv {
     private Game game;
+    Position redcity = new Position(1,1);
+    Position bluecity = new Position(4,1);
     /** Fixture for alphaciv testing. */
     @Before
     public void setUp() {
@@ -260,5 +262,77 @@ public class TestAlphaCiv {
 
     }
 
+    @Test
+    public void ShouldBeAddProductionWorksForCityImpl() {
+        CityImpl c = new CityImpl(Player.RED);
+        c.addProduction(10);
+        c.addProduction(10);
+        assertEquals("City have 20 productions", 20, c.getProductionValue());
+    }
+    @Test
+    public void ShouldGiveCity6ProductionPrTurn() {
+        assertEquals("0 food at start",0,game.getCityAt(redcity).getProductionValue());
+        endRound();
+        assertEquals("6 food at 2nd round",6,game.getCityAt(redcity).getProductionValue());
+    }
+    @Test
+    public void ShouldProduceRedArcherAtRound2() {
+        game.changeProductionInCityAt(redcity,GameConstants.ARCHER);
+        assertNull("no unit yet", game.getUnitAt(redcity));
+        endRound();
+        assertNull("no unit yet", game.getUnitAt(redcity));
+        endRound();
+        Unit u1 = game.getUnitAt(redcity);
+        assertNotNull("unit at (1,1)", u1);
+        assertEquals("unit at (1,1) belongs to red",Player.RED,u1.getOwner());
+        assertEquals("unit at (1,1) is archer", GameConstants.ARCHER,u1.getTypeString());
+    }
+    @Test
+    public void ShouldProduceBlueLegionAtRound3BlueTurn() {
+        game.changeProductionInCityAt(bluecity,GameConstants.LEGION);
+        assertNull("no unit yet", game.getUnitAt(bluecity));
+        endRound();
+        assertNull("no unit yet2", game.getUnitAt(bluecity));
+        endRound();
+        assertNull("no unit yet3", game.getUnitAt(bluecity));
+        endRound();
+        game.endOfTurn();
+        Unit u1 = game.getUnitAt(bluecity);
+        assertNotNull("unit at (4,1)", u1);
+        assertEquals("unit at (4,1) belongs to red",Player.BLUE,u1.getOwner());
+        assertEquals("unit at (4,1) is archer", GameConstants.LEGION,u1.getTypeString());
+    }
+    public void endRound() {
+        game.endOfTurn();
+        game.endOfTurn();
+    }
 
+    @Test
+    public void shouldProduceArcherAtRound4And5And7InCircle() {
+        // circle goes p1,p2,p3
+        game.changeProductionInCityAt(redcity, GameConstants.ARCHER);
+        Position p1 = new Position(0,1);
+        Position p2 = new Position(0,2);
+        Position p3 = new Position(1,2);
+        endRound();
+        endRound(); // already check that for round2
+        assertNull("no unit (0,1)", game.getUnitAt(p1));
+        assertNull("no unit(0,2)", game.getUnitAt(p2));
+        assertNull("no unit at (1,2)", game.getUnitAt(p3));
+        endRound();
+        endRound();
+        assertNotNull("unit (0,1)", game.getUnitAt(p1));
+        assertNull("no unit(0,2)2", game.getUnitAt(p2));
+        assertNull("no unit at (1,2)2", game.getUnitAt(p3));
+        endRound();
+        assertNotNull("unit (0,1)2", game.getUnitAt(p1));
+        assertNotNull("unit(0,2)", game.getUnitAt(p2));
+        assertNull("no unit at (1,2)3", game.getUnitAt(p3));
+        endRound();
+        endRound();
+        assertNotNull("unit (0,1)3", game.getUnitAt(p1));
+        assertNotNull("unit(0,2)2", game.getUnitAt(p2));
+        assertNotNull("unit at (1,2)", game.getUnitAt(p3));
+
+    }
 }

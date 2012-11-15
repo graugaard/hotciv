@@ -11,10 +11,12 @@ import hotciv.framework.*;
 public class CityImpl implements City {
     private Player owner;
     private String producing;
+    private int production;
 
     public CityImpl(Player owner) {
         this.owner = owner;
         producing = GameConstants.SETTLER;
+        production = 0;
     }
 
     public int getSize() {
@@ -37,5 +39,11 @@ public class CityImpl implements City {
         producing = unitType;
     }
 
+    public void addProduction(int amount) {
+        production += amount;
+    }
+    public int getProductionValue() {
+        return production;
+    }
 
 }
