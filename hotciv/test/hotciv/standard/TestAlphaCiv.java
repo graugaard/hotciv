@@ -299,8 +299,8 @@ public class TestAlphaCiv {
         game.endOfTurn();
         Unit u1 = game.getUnitAt(bluecity);
         assertNotNull("unit at (4,1)", u1);
-        assertEquals("unit at (4,1) belongs to red",Player.BLUE,u1.getOwner());
-        assertEquals("unit at (4,1) is archer", GameConstants.LEGION,u1.getTypeString());
+        assertEquals("unit at (4,1) belongs to blue",Player.BLUE,u1.getOwner());
+        assertEquals("unit at (4,1) is legion", GameConstants.LEGION,u1.getTypeString());
     }
     public void endRound() {
         game.endOfTurn();
