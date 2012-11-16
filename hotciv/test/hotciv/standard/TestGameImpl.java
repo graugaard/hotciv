@@ -38,14 +38,27 @@ public class TestGameImpl {
 	public void ShouldGet6_7WhenAskingForAllPositionsWithDistance0From6_7() {
 		Position p = new Position(6,7);
 		positions = g.getPositions(p,0);
-		assertEquals("Only 1 position in list", 1, positions.size());
+		assertEquals("Only 1 position with dist 0 to (6,7)", 1, positions.size());
 		assertEquals("(6,7) is in the list", p, positions.get(0));
 	}
 	
+	/* === ARGUMENT FOR THE FOLLOWING TEST CASES ===
+	 * It can be proven mathematically that there are 8*n points (x',y') around (x,y)
+	 * with x,y integers, where max(|x-x'|,|y-y'|) = n, n>=1. To see this, realize
+	 * this is the case for n = 1 and assume for an n. Now, consider the points of n+1. 
+	 * Ignonring the cases where |x-x'|=|y-y'| = n+1, these points are either rigt above, below
+	 * or to the sides of the prevoius points. The corners have 2 close to them
+	 * (one above or below, and one to the side), the rest 1. This means we have 8n + 4, where 
+	 * the 4 is the extra from the corners. Add 4 for the corners we ignonred and we get that
+	 * 8n + 8 = 8(n+1), as claimed.
+	 */
 	@Test
 	public void ShouldGetAllPositionsInDistance3From7_7InOrder() {
 		positions = g.getPositions(new Position(7,7),3);
-		assertEquals("There are 24 positions in the list", 24, positions.size());
+		
+		assertEquals("There are 24 positions with dist 7 to (7,7)", 24, positions.size());
+		
+		// these are all positions in distance 3 from (7,7). 
 		assertEquals("(4,7) is at index 0",
 				new Position(4,7), positions.get(0));
 		assertEquals("(4,9) is at index 2",
@@ -69,8 +82,21 @@ public class TestGameImpl {
 	}
 	
 	@Test
-	public void ShouldOnlyGetValidPositions() {
+	public void ShouldOnlyGetValidWorldPositions() {
+
+		/* We check it also cuts y values in opposite side
+		 * and where x < 0 and x > 16 and the same with y
+		 */
+		positions = g.getPositions(new Position(0,0),1);
+		assertEquals("There are 3 points with dist 1 to (0,0)", 3, positions.size());
+		assertEquals("(0,1) is at index 0", 
+				new Position(0,1),positions.get(0));
 		
+		positions = g.getPositions(new Position(15,15),2);
+		assertEquals("There are 5 points with dist 2 to (15,15)",
+				5, positions.size());
+		assertEquals("(13,15) is at index 0", 
+				new Position(13,15), positions.get(0));
 	}
 
 }

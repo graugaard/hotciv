@@ -1,5 +1,7 @@
 package hotciv.standard;
 
+import java.util.*;
+
 import hotciv.framework.*;
 
 /** Skeleton implementation of HotCiv.
@@ -171,26 +173,85 @@ public class GameImpl implements Game {
             return 15;
         else return 30;
     }
-    private void setUnit(Unit u, Position center) {
-        int x,y; x = center.getRow();
-        y = center.getColumn();
-        if(getUnitAt(center) == null)
-            units[center.getRow()][center.getColumn()] = u;
-        else if (units[x-1][y] == null)
-            units[x-1][y] = u;
-        else if (units[x-1][y+1] == null)
-            units[x-1][y+1] = u;
-        else if (units[x][y+1] == null)
-            units[x][y+1] = u;
-        else if (units[x+1][y+1] == null)
-            units[x+1][y+1] = u;
-        else if (units[x+1][y] == null)
-            units[x+1][y] = u;
-        else if (units[x+1][y-1] == null)
-            units[x+1][y-1] = u;
-        else if (units[x][y-1] == null)
-            units[x][y-1] = u;
-        else
-            units[x-1][y-1] = u;
+    
+    /* Sets the unit at first available position. Returns true if
+     * unit could be set
+     */
+    private boolean setUnit(Unit u, Position center) {
+    	int dist = 0;
+    	boolean unitSet = false;
+    	// once dist is greater than how big the world is, we can't find anymore
+    	while(dist <= GameConstants.WORLDSIZE && !unitSet) {
+    		List<Position> positions = getPositions(center, dist);
+    		for (Position p : positions) {
+    			if (getUnitAt(p) == null) {
+    				units[p.getRow()][p.getColumn()] = u;
+    				unitSet = true;
+    				break; // unit has been set, no need to loop anymore
+    			}
+    		}
+    		// could find in current distance, expand search
+    		dist++;
+    	}
+    	return unitSet;
+    }
+    /**
+     * Return a list of valid game positions that is the specified
+     * distance away from the center. They are ordered by the position due north
+     * is the first in the list and they come clockwise
+     * Precondition: center is a valid position in world
+     * @param center The center from which we measure the distance
+     * @param dist The distance away from the center we retrieve the positions, must be 0 or greater
+     * @return The list of positions, ordered by starting due north and going around clockwise.
+     * @return The list has size 0 if no such positions exist.
+     */
+    public List<Position> getPositions(Position center, int dist) {
+    	List<Position> result = new ArrayList<Position>();
+    	/* Start at position due north that is distance dist away.
+    	 * Add it and continue counter clockwise to add positions.
+    	 * Stop when we are back
+    	*/
+    	if (dist == 0) {
+    		result.add(center);
+    	}
+    	else if (dist > 0) {
+    		int x = center.getRow();
+    		int y = center.getColumn();
+    		/* Before we enter a loop, check that the coordinate we fix
+    		 * will lie inside the world. We use that x and y already are
+    		 * valid positions
+    		 */
+    		int ws = GameConstants.WORLDSIZE;
+    		if (x - dist >= 0) {
+    			for (int i = y; i < y+dist && i < ws; i++) {
+    				result.add(new Position(x-dist,i));
+    			}
+    		}
+    		if (y + dist < ws) {
+    			// if x - dist < 0, start from where we enter world again
+    			int xStart = Math.max(0, x-dist);
+    			for (int i = xStart; i < x+dist && i < ws; i++) {
+    				result.add(new Position(i,y+dist));
+    			}
+    		}
+    		if (x + dist < ws) {
+    			// if y + dist >= worldsize, start from when enter world again
+    			int yStart = Math.min(ws - 1, y + dist);
+    			for (int i = yStart; i > y-dist && i >= 0; i--){
+    				result.add(new Position(x+dist,i));
+    			}
+    		}
+    		if (y - dist >= 0) {
+    			// start from when the world exists
+    			int xStart = Math.min(ws - 1, x + dist);
+    			for (int i = xStart; i > x-dist && i >= 0; i--) {
+    				result.add(new Position(i,y-dist));
+    			}
+    			for (int i = y-dist; i < y; i++) {
+    				result.add(new Position(x-dist,i));
+    			}
+    		}
+    	}
+    	return result;
     }
 }
