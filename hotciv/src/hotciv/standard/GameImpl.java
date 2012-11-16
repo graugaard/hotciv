@@ -180,7 +180,7 @@ public class GameImpl implements Game {
     private boolean setUnit(Unit u, Position center) {
     	int dist = 0;
     	boolean unitSet = false;
-    	// once dist is greater than how big the world is, we can't find anymore
+    	// once dist is greater than how big the world is, we can't find anymore positions
     	while(dist <= GameConstants.WORLDSIZE && !unitSet) {
     		List<Position> positions = getPositions(center, dist);
     		for (Position p : positions) {
