@@ -154,7 +154,7 @@ public class GameImpl implements Game {
 
     private void produce(Player p) {
         int ws = GameConstants.WORLDSIZE;
-        for(int i = 0; i< ws; i++)
+        for(int i = 0; i< ws; i++) {
             for(int j = 0; j < ws; j++) {
                 City c =  getCityAt(new Position(i,j));
                 if (c != null && c.getOwner() == p) {
@@ -164,9 +164,9 @@ public class GameImpl implements Game {
                         setUnit(new UnitImpl(prod, p), new Position(i,j));
                         c.addProduction(-unitCost(prod));
                     }
-
                 }
             }
+        }
     }
     private int unitCost(String type) {
         if (type.equals(GameConstants.ARCHER)) {
@@ -182,7 +182,7 @@ public class GameImpl implements Game {
      * unit could be set
      */
     private boolean setUnit(Unit u, Position center) {
-    	int dist = 0;
+    	int dist = 0; // we first check if unit can be placed in city
     	boolean unitSet = false;
     	// once dist is greater than how big the world is, we can't find anymore positions
     	while(dist <= GameConstants.WORLDSIZE && !unitSet) {
