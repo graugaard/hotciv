@@ -1,6 +1,6 @@
 List of gameImpl test cases
 	
-	When asking for all positions in a certain distance, 
+k	When asking for all positions in a certain distance, 
 		which are all valid, we get all positions starting due north
-	No positions are returned when asking for negative distance
-	Only valid positions are returned when asking for things a certain distance away
+k	No positions are returned when asking for negative distance
+k	Only valid positions are returned when asking for things a certain distance away
