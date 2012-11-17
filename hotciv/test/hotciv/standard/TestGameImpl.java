@@ -98,5 +98,11 @@ public class TestGameImpl {
 		assertEquals("(13,15) is at index 0", 
 				new Position(13,15), positions.get(0));
 	}
+	
+	@Test
+	public void ShouldNotGetAnyPositionsWhenDistanceIsNegative() {
+		positions = g.getPositions(new Position(4,5), -5);
+		assertEquals("No positions in negative distance", 0, positions.size());
+	}
 
 }

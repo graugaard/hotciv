@@ -55,7 +55,7 @@ public class GameImpl implements Game {
     }
     public Player getPlayerInTurn() { return playerInTurn; }
     public Player getWinner() {
-        if(age==-3000)
+        if(age==-3000) 
             return Player.RED;
         else return null;
     }
@@ -142,24 +142,26 @@ public class GameImpl implements Game {
     // set up the initial cities in the game
     private void setupCities(int worldSize) {
         cities = new City[worldSize][worldSize];
-        for (int i = 0; i < worldSize; i++)
-            for (int j = 0; j < worldSize; j++)
+        for (int i = 0; i < worldSize; i++) {
+            for (int j = 0; j < worldSize; j++) {
                 cities[i][j] = null;
+            }
+        }
         cities[1][1] = new CityImpl(Player.RED);
         cities[4][1] = new CityImpl(Player.BLUE);
 
     }
 
-    private void produce(Player p1) {
+    private void produce(Player p) {
         int ws = GameConstants.WORLDSIZE;
         for(int i = 0; i< ws; i++)
             for(int j = 0; j < ws; j++) {
                 City c =  getCityAt(new Position(i,j));
-                if (c != null && c.getOwner() == p1) {
+                if (c != null && c.getOwner() == p) {
                     c.addProduction(6);
                     String prod = c.getProduction();
-                    if(c.getProductionValue()>= unitCost(prod)){
-                        setUnit(new UnitImpl(prod, p1), new Position(i,j));
+                    if(c.getProductionValue() >= unitCost(prod)){
+                        setUnit(new UnitImpl(prod, p), new Position(i,j));
                         c.addProduction(-unitCost(prod));
                     }
 
@@ -167,10 +169,12 @@ public class GameImpl implements Game {
             }
     }
     private int unitCost(String type) {
-        if (type.equals(GameConstants.ARCHER))
+        if (type.equals(GameConstants.ARCHER)) {
             return 10;
-        else if (type.equals(GameConstants.LEGION))
+        }
+        else if (type.equals(GameConstants.LEGION)) {
             return 15;
+        }
         else return 30;
     }
     
@@ -190,7 +194,7 @@ public class GameImpl implements Game {
     				break; // unit has been set, no need to loop anymore
     			}
     		}
-    		// could find in current distance, expand search
+    		// could find empty position in current distance, expand search
     		dist++;
     	}
     	return unitSet;
@@ -209,8 +213,8 @@ public class GameImpl implements Game {
     	List<Position> result = new ArrayList<Position>();
     	/* Start at position due north that is distance dist away.
     	 * Add it and continue counter clockwise to add positions.
-    	 * Stop when we are back
-    	*/
+    	 * Stop when we are back at position due north
+    	 */
     	if (dist == 0) {
     		result.add(center);
     	}
