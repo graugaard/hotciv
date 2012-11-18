@@ -1,6 +1,5 @@
 *.class
-*.html
-bin/*
+
 # Package Files #
 
 *.war
