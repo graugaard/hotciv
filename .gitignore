@@ -1,5 +1,6 @@
 *.class
-
+doc/
+bin/
 # Package Files #
 
 *.war
