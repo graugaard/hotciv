@@ -28,9 +28,7 @@ public class TestAlphaCiv {
     /** Fixture for alphaciv testing. */
     @Before
     public void setUp() {
-        game = new GameImpl(new AlphaAgeStrategy(), new AlphaWinnerStrategy() {
-        });
-
+        game = new GameImpl(new AlphaFactory());
     }
 
     @Test

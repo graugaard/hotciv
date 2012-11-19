@@ -35,7 +35,7 @@ public class GameImpl implements Game {
     /**
      * Make a new Alphaciv game, fresh to be used
      */
-    public GameImpl(AgeStrategy ageStrategy, WinnerStrategy winnerStrategy) {
+    public GameImpl(GameFactory factory) {
         int wSize = GameConstants.WORLDSIZE;
         setupUnits(wSize);
         setupTiles(wSize);
@@ -43,8 +43,8 @@ public class GameImpl implements Game {
         playerInTurn = Player.RED;
         age = -4000;
         firstRound = true;
-        this.ageStrategy = ageStrategy;
-        this.winnerStrategy = winnerStrategy;
+        this.ageStrategy = factory.makeAgeStrategy();
+        this.winnerStrategy = factory.makeWinnerStrategy();
     }
 
     public void setAgeStrategy(AgeStrategy useThisStrategy){
