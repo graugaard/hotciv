@@ -23,7 +23,7 @@
 
   <property name="build-directory" value="build"/>
   <property name="resourceDirectory" value="resource"/>
-  <property name="docDirectory" value="doc"></property>
+  <property name="docDirectory" value="doc" />
   
   <property name="junitJar" value="lib/junit-4.4.jar"/>
 
@@ -93,7 +93,7 @@ HotCiv build management.
   <target name="build-all" depends="build-src,build-test"/>
 
   <target name="mkdirdoc">
-    <mkdir dir="${docDirectory}"></mkdir>
+    <mkdir dir="${docDirectory}" />
   </target>
 
   <target name="javadoc" depends="clean,build-src,mkdirdoc">
@@ -120,6 +120,7 @@ HotCiv build management.
     <java classname="org.junit.runner.JUnitCore">
       <arg value="hotciv.standard.TestAlphaCiv"/>
 	  <arg value="hotciv.standard.TestGameImpl"/>
+      <arg value="hotciv.standard.TestBetaAgeStrategy"/>
       <classpath refid="class-path"/>
     </java>
   </target>

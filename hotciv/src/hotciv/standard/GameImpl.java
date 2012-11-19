@@ -29,11 +29,13 @@ public class GameImpl implements Game {
     private Player playerInTurn;
     private int age;
     private boolean firstRound;
+    private AgeStrategy ageStrategy;
+    private WinnerStrategy winnerStrategy;
 
     /**
      * Make a new Alphaciv game, fresh to be used
      */
-    public GameImpl() {
+    public GameImpl(AgeStrategy ageStrategy, WinnerStrategy winnerStrategy) {
         int wSize = GameConstants.WORLDSIZE;
         setupUnits(wSize);
         setupTiles(wSize);
@@ -41,6 +43,13 @@ public class GameImpl implements Game {
         playerInTurn = Player.RED;
         age = -4000;
         firstRound = true;
+        this.ageStrategy = ageStrategy;
+        this.winnerStrategy = winnerStrategy;
+    }
+
+    public void setAgeStrategy(AgeStrategy useThisStrategy){
+        ageStrategy = useThisStrategy;
+
     }
 
 
@@ -55,9 +64,7 @@ public class GameImpl implements Game {
     }
     public Player getPlayerInTurn() { return playerInTurn; }
     public Player getWinner() {
-        if(age==-3000) 
-            return Player.RED;
-        else return null;
+        return winnerStrategy.getWinner(this);
     }
     public int getAge() { return age; }
     public boolean moveUnit( Position from, Position to ) {
@@ -87,7 +94,7 @@ public class GameImpl implements Game {
         }
         else {
             playerInTurn = Player.RED;
-            age += 100;
+            age = ageStrategy.calculateNextAge(age);
             produce(Player.RED);
             resetMove();
             firstRound = false;

@@ -14,7 +14,7 @@ public class TestGameImpl {
 	@Before
 	public void setUp() {
 		
-		g = new GameImpl();
+		g = new GameImpl(new AlphaAgeStrategy(), new AlphaWinnerStrategy());
 		positions = null;
 	}
 	/* This is a major list of test designed to test the getPositions function of GameImpl class.

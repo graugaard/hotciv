@@ -130,4 +130,6 @@ public interface Game {
      *  @return the distance between the two positions.
      */
     public int dist(Position p1, Position p2);
+
+    public void setAgeStrategy(AgeStrategy useThisStrategy);
 }
