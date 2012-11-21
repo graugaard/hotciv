@@ -5,20 +5,17 @@ import hotciv.framework.GameFactory;
 import hotciv.framework.UnitActionStrategy;
 import hotciv.framework.WinnerStrategy;
 
-public class BetaFactory implements GameFactory {
-
-    @Override
+public class GammaFactory implements GameFactory{
     public AgeStrategy makeAgeStrategy() {
-        return new BetaAgeStrategy();
+        return new AlphaAgeStrategy();
     }
 
-    @Override
+
     public WinnerStrategy makeWinnerStrategy() {
-        return new BetaWinnerStrategy();
+        return new AlphaWinnerStrategy();
     }
 
     public UnitActionStrategy makeUnitActionStrategy() {
-        return new AlphaUnitActionStrategy();
+        return new GammaUnitActionStrategy();
     }
-
 }

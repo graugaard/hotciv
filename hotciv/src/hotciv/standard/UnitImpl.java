@@ -4,12 +4,13 @@ import hotciv.framework.*;
 /**
  * Implementation of unit interface for alphaciv
  */
-public class UnitImpl implements Unit{
+public class UnitImpl implements Unit {
     private Player owner;
     private String type;
     private int movecount = 1;
+    boolean fortified = false;
 
-    public  UnitImpl(String type, Player owner){
+    public  UnitImpl(String type, Player owner) {
         this.type = type;
         this.owner = owner;
     }
@@ -24,24 +25,44 @@ public class UnitImpl implements Unit{
 
     @Override
     public int getMoveCount() {
-        return movecount;
+        if(fortified){
+            return 0;
+        }
+        else return movecount;
     }
 
     @Override
     public int getDefensiveStrength() {
-        if (type.equals( GameConstants.ARCHER)) {
-            return 3;
+        int res;
+        if (type.equals(GameConstants.ARCHER)) {
+            res = 3;
         }
         if (type.equals(GameConstants.LEGION)) {
-            return 2;
+            res = 2;
         }
         // we are certain we now have a settler
-        else return 3;
+        else {
+            res = 3;
+        }
+        if (fortified) {
+            return res*2;
+        }
+        return res;
     }
 
     @Override
     public int getAttackingStrength() {
         return 0;
+    }
+
+    public void setFortify() {
+        if (fortified){
+            fortified = false;
+        }
+        else {
+            fortified = true;
+            setMoveCount(0);
+        }
     }
 
     /**

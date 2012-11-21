@@ -2,6 +2,7 @@ package hotciv.standard;
 
 import hotciv.framework.AgeStrategy;
 import hotciv.framework.GameFactory;
+import hotciv.framework.UnitActionStrategy;
 import hotciv.framework.WinnerStrategy;
 
 public class AlphaFactory implements GameFactory {
@@ -15,6 +16,10 @@ public class AlphaFactory implements GameFactory {
 	public WinnerStrategy makeWinnerStrategy() {
 		return new AlphaWinnerStrategy();
 	}
+
+    public UnitActionStrategy makeUnitActionStrategy() {
+        return new AlphaUnitActionStrategy();
+    }
 
 
 }

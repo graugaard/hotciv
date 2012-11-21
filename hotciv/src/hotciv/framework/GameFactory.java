@@ -17,4 +17,6 @@ public interface GameFactory {
 	 * @return the winner strategy object
 	 */
 	public WinnerStrategy makeWinnerStrategy();
+
+    public UnitActionStrategy makeUnitActionStrategy();
 }

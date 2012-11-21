@@ -46,7 +46,7 @@ public class GameImpl implements Game {
         firstRound = true;
         this.ageStrategy = factory.makeAgeStrategy();
         this.winnerStrategy = factory.makeWinnerStrategy();
-        this.unitActionStrategy = new AlphaUnitActionStrategy();
+        this.unitActionStrategy = factory.makeUnitActionStrategy();
     }
 
     public void setAgeStrategy(AgeStrategy useThisStrategy){
@@ -112,11 +112,14 @@ public class GameImpl implements Game {
 
         Unit u = getUnitAt(p);
         if (u != null){
+            UnitImpl unit = (UnitImpl) u;
             if (unitActionStrategy.returnAction(u.getTypeString()) == UnitAction.FORTIFY){
-
+                unit.setFortify();
             }
             else if(unitActionStrategy.returnAction(u.getTypeString()) == UnitAction.BUILD_CITY){
-
+                Player uOwner = u.getOwner();
+                units[p.getRow()][p.getColumn()] = null;
+                cities[p.getRow()][p.getColumn()] = new CityImpl(uOwner);
             }
         }
     }

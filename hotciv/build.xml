@@ -123,6 +123,8 @@ HotCiv build management.
       <arg value="hotciv.standard.TestBetaAgeStrategy"/>
       <arg value="hotciv.standard.TestBetaWinnerStrategy"/>
       <arg value="hotciv.standard.TestAlphaUnitAction"/>
+      <arg value="hotciv.standard.TestGammaUnitAction"/>
+      <arg value="hotciv.standard.TestIntegration"/>
       <classpath refid="class-path"/>
     </java>
   </target>
