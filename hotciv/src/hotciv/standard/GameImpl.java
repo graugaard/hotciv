@@ -113,10 +113,10 @@ public class GameImpl implements Game {
         Unit u = getUnitAt(p);
         if (u != null){
             UnitImpl unit = (UnitImpl) u;
-            if (unitActionStrategy.returnAction(u.getTypeString()) == UnitAction.FORTIFY){
+            if (unitActionStrategy.returnAction(u) == UnitAction.FORTIFY){
                 unit.setFortify();
             }
-            else if(unitActionStrategy.returnAction(u.getTypeString()) == UnitAction.BUILD_CITY){
+            else if(unitActionStrategy.returnAction(u) == UnitAction.BUILD_CITY){
                 Player uOwner = u.getOwner();
                 units[p.getRow()][p.getColumn()] = null;
                 cities[p.getRow()][p.getColumn()] = new CityImpl(uOwner);
