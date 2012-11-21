@@ -10,7 +10,7 @@ public class TestGammaUnitAction {
         private Game game;
         @Before
         public void setUp() {
-            game = new GameImpl(new GammaFactory());
+            game = new GameImpl(new GammaFactory(), new AlphaWorldGeneration());
         }
         @Test
         public void shouldNotGiveNullPointerException() {

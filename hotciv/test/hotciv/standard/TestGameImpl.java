@@ -13,7 +13,7 @@ public class TestGameImpl {
 	
 	@Before
 	public void setUp() {
-		g = new GameImpl(new AlphaFactory());
+		g = new GameImpl(new AlphaFactory(), new AlphaWorldGeneration());
 		positions = null;
 	}
 	/* This is a major list of test designed to test the getPositions function of GameImpl class.

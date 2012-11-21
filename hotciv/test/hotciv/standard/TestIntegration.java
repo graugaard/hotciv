@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 public class TestIntegration {
 	@Test
 	public void BetaCivIntegration() {
-		GameImpl g = new GameImpl(new BetaFactory());
+		GameImpl g = new GameImpl(new BetaFactory(), new AlphaWorldGeneration());
 		assertEquals("should start at age -4000", -4000, g.getAge());
 		// perform 2*39 end of turn, to advance the age
 		// which advanced with 39*100 years
@@ -21,7 +21,7 @@ public class TestIntegration {
 	}
     @Test
     public void GammaCivIntegration() {
-        GameImpl g = new GameImpl(new GammaFactory());
+        GameImpl g = new GameImpl(new GammaFactory(), new AlphaWorldGeneration());
         Unit u = g.getUnitAt(new Position(4, 3));
         assertEquals("settler at position 4, 3", GameConstants.SETTLER, u.getTypeString());
         assertNull("no city at position 4, 3", g.getCityAt(new Position(4, 3)));
