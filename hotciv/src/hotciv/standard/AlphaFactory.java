@@ -16,4 +16,5 @@ public class AlphaFactory implements GameFactory {
 		return new AlphaWinnerStrategy();
 	}
 
+
 }

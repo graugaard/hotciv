@@ -29,7 +29,14 @@ public class UnitImpl implements Unit{
 
     @Override
     public int getDefensiveStrength() {
-        return 0;
+        if (type.equals( GameConstants.ARCHER)) {
+            return 3;
+        }
+        if (type.equals(GameConstants.LEGION)) {
+            return 2;
+        }
+        // we are certain we now have a settler
+        else return 3;
     }
 
     @Override

@@ -31,6 +31,7 @@ public class GameImpl implements Game {
     private boolean firstRound;
     private AgeStrategy ageStrategy;
     private WinnerStrategy winnerStrategy;
+    private UnitActionStrategy unitActionStrategy;
 
     /**
      * Make a new Alphaciv game, fresh to be used
@@ -45,6 +46,7 @@ public class GameImpl implements Game {
         firstRound = true;
         this.ageStrategy = factory.makeAgeStrategy();
         this.winnerStrategy = factory.makeWinnerStrategy();
+        this.unitActionStrategy = new AlphaUnitActionStrategy();
     }
 
     public void setAgeStrategy(AgeStrategy useThisStrategy){
@@ -106,7 +108,20 @@ public class GameImpl implements Game {
         c.setProduction(unitType);
 
     }
-    public void performUnitActionAt( Position p ) {}
+    public void performUnitActionAt( Position p ) {
+
+        Unit u = getUnitAt(p);
+        if (u != null){
+            if (unitActionStrategy.returnAction(u.getTypeString()) == UnitAction.FORTIFY){
+
+            }
+            else if(unitActionStrategy.returnAction(u.getTypeString()) == UnitAction.BUILD_CITY){
+
+            }
+        }
+    }
+
+
     public int dist(Position p1, Position p2) {
         int x = Math.abs(p1.getRow()-p2.getRow());
         int y = Math.abs(p1.getColumn() - p2.getColumn());
@@ -184,27 +199,27 @@ public class GameImpl implements Game {
         }
         else return 30;
     }
-    
+
     /* Sets the unit at first available position. Returns true if
-     * unit could be set
-     */
+    * unit could be set
+    */
     private boolean setUnit(Unit u, Position center) {
-    	int dist = 0; // we first check if unit can be placed in city
-    	boolean unitSet = false;
-    	// once dist is greater than how big the world is, we can't find anymore positions
-    	while(dist <= GameConstants.WORLDSIZE && !unitSet) {
-    		List<Position> positions = getPositions(center, dist);
-    		for (Position p : positions) {
-    			if (getUnitAt(p) == null) {
-    				units[p.getRow()][p.getColumn()] = u;
-    				unitSet = true;
-    				break; // unit has been set, no need to loop anymore
-    			}
-    		}
-    		// could find empty position in current distance, expand search
-    		dist++;
-    	}
-    	return unitSet;
+        int dist = 0; // we first check if unit can be placed in city
+        boolean unitSet = false;
+        // once dist is greater than how big the world is, we can't find anymore positions
+        while(dist <= GameConstants.WORLDSIZE && !unitSet) {
+            List<Position> positions = getPositions(center, dist);
+            for (Position p : positions) {
+                if (getUnitAt(p) == null) {
+                    units[p.getRow()][p.getColumn()] = u;
+                    unitSet = true;
+                    break; // unit has been set, no need to loop anymore
+                }
+            }
+            // could find empty position in current distance, expand search
+            dist++;
+        }
+        return unitSet;
     }
     /**
      * Return a list of valid game positions that is the specified
@@ -217,52 +232,52 @@ public class GameImpl implements Game {
      * @return The list has size 0 if no such positions exist.
      */
     public List<Position> getPositions(Position center, int dist) {
-    	List<Position> result = new ArrayList<Position>();
-    	/* Start at position due north that is distance dist away.
-    	 * Add it and continue counter clockwise to add positions.
-    	 * Stop when we are back at position due north
-    	 */
-    	if (dist == 0) {
-    		result.add(center);
-    	}
-    	else if (dist > 0) {
-    		int x = center.getRow();
-    		int y = center.getColumn();
-    		/* Before we enter a loop, check that the coordinate we fix
-    		 * will lie inside the world. We use that x and y already are
-    		 * valid positions
-    		 */
-    		int ws = GameConstants.WORLDSIZE;
-    		if (x - dist >= 0) {
-    			for (int i = y; i < y+dist && i < ws; i++) {
-    				result.add(new Position(x-dist,i));
-    			}
-    		}
-    		if (y + dist < ws) {
-    			// if x - dist < 0, start from where we enter world again
-    			int xStart = Math.max(0, x-dist);
-    			for (int i = xStart; i < x+dist && i < ws; i++) {
-    				result.add(new Position(i,y+dist));
-    			}
-    		}
-    		if (x + dist < ws) {
-    			// if y + dist >= worldsize, start from when enter world again
-    			int yStart = Math.min(ws - 1, y + dist);
-    			for (int i = yStart; i > y-dist && i >= 0; i--){
-    				result.add(new Position(x+dist,i));
-    			}
-    		}
-    		if (y - dist >= 0) {
-    			// start from when the world exists
-    			int xStart = Math.min(ws - 1, x + dist);
-    			for (int i = xStart; i > x-dist && i >= 0; i--) {
-    				result.add(new Position(i,y-dist));
-    			}
-    			for (int i = y-dist; i < y; i++) {
-    				result.add(new Position(x-dist,i));
-    			}
-    		}
-    	}
-    	return result;
+        List<Position> result = new ArrayList<Position>();
+        /* Start at position due north that is distance dist away.
+           * Add it and continue counter clockwise to add positions.
+           * Stop when we are back at position due north
+           */
+        if (dist == 0) {
+            result.add(center);
+        }
+        else if (dist > 0) {
+            int x = center.getRow();
+            int y = center.getColumn();
+            /* Before we enter a loop, check that the coordinate we fix
+                * will lie inside the world. We use that x and y already are
+                * valid positions
+                */
+            int ws = GameConstants.WORLDSIZE;
+            if (x - dist >= 0) {
+                for (int i = y; i < y+dist && i < ws; i++) {
+                    result.add(new Position(x-dist,i));
+                }
+            }
+            if (y + dist < ws) {
+                // if x - dist < 0, start from where we enter world again
+                int xStart = Math.max(0, x-dist);
+                for (int i = xStart; i < x+dist && i < ws; i++) {
+                    result.add(new Position(i,y+dist));
+                }
+            }
+            if (x + dist < ws) {
+                // if y + dist >= worldsize, start from when enter world again
+                int yStart = Math.min(ws - 1, y + dist);
+                for (int i = yStart; i > y-dist && i >= 0; i--){
+                    result.add(new Position(x+dist,i));
+                }
+            }
+            if (y - dist >= 0) {
+                // start from when the world exists
+                int xStart = Math.min(ws - 1, x + dist);
+                for (int i = xStart; i > x-dist && i >= 0; i--) {
+                    result.add(new Position(i,y-dist));
+                }
+                for (int i = y-dist; i < y; i++) {
+                    result.add(new Position(x-dist,i));
+                }
+            }
+        }
+        return result;
     }
 }
