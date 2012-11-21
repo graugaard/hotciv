@@ -53,7 +53,7 @@ public class TestIntegration {
     	assertNotNull("Tile aint null", t);
     	assertEquals("Tile is ocean", GameConstants.OCEANS, t.getTypeString());
     	
-    	City c = g.getCityAt(new Position(8,2));
+    	City c = g.getCityAt(new Position(8,12));
     	assertNotNull("City is not null", c);
     	assertEquals("City belongs to red", Player.RED, c.getOwner());
     }
