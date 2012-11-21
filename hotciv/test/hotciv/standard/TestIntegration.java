@@ -42,4 +42,19 @@ public class TestIntegration {
         assertEquals("archer should now have 1 movecount", 1, arch.getMoveCount());
 
     }
+    
+    @Test
+    public void DeltaCivIntegration() {
+    	GameImpl g = new GameImpl(new AlphaFactory(), new DeltaWorldGeneration());
+    	Tile t = g.getTileAt(new Position(5,2));
+    	assertNotNull("Tile aint null", t);
+    	assertEquals("Tile is forest", GameConstants.FOREST, t.getTypeString());
+    	t = g.getTileAt(new Position(0,0));
+    	assertNotNull("Tile aint null", t);
+    	assertEquals("Tile is ocean", GameConstants.OCEANS, t.getTypeString());
+    	
+    	City c = g.getCityAt(new Position(8,2));
+    	assertNotNull("City is not null", c);
+    	assertEquals("City belongs to red", Player.RED, c.getOwner());
+    }
 }
