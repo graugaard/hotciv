@@ -9,7 +9,7 @@ public class TestAlphaUnitAction {
     private Game game;
     @Before
     public void setUp() {
-        game = new GameImpl(new AlphaFactory());
+        game = new GameImpl(new AlphaFactory(), new AlphaWorldGeneration());
     }
     @Test
     public void shouldNotGiveNullPointerException() {

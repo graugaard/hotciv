@@ -9,7 +9,7 @@ public class TestBetaWinnerStrategy {
     private WinnerStrategy betaWin;
     @Before
     public void setUp() {
-        g = new GameImpl(new BetaFactory());
+        g = new GameImpl(new BetaFactory(), new AlphaWorldGeneration());
         betaWin = new BetaWinnerStrategy();
     }
 

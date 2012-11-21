@@ -36,11 +36,10 @@ public class GameImpl implements Game {
     /**
      * Make a new Alphaciv game, fresh to be used
      */
-    public GameImpl(GameFactory factory) {
-        int wSize = GameConstants.WORLDSIZE;
-        setupUnits(wSize);
-        setupTiles(wSize);
-        setupCities(wSize);
+    public GameImpl(GameFactory factory, WorldGeneration world) {
+        this.units = world.generateUnits();
+        this.tiles = world.generateTiles();
+        this.cities = world.generateCities();
         playerInTurn = Player.RED;
         age = -4000;
         firstRound = true;
@@ -140,42 +139,7 @@ public class GameImpl implements Game {
 
     }
 
-    // setup the game world tiles
-    private void setupTiles(int worldSize) {
-        tiles = new Tile[worldSize][worldSize];
-        for(int i = 0; i < worldSize; i++)
-            for(int j = 0; j < worldSize; j++)
-                tiles[i][j] = new TileImpl(GameConstants.PLAINS);
-        // special tiles, since most is plains
-        tiles[1][0] = new TileImpl(GameConstants.OCEANS);
-        tiles[0][1] = new TileImpl(GameConstants.HILLS);
-        tiles[2][2] = new TileImpl(GameConstants.MOUNTAINS);
-    }
-    // set up the initial units at in the game
-    private void setupUnits(int worldSize) {
-        units = new Unit[worldSize][worldSize];
-        for (int i = 0; i < worldSize; i++)
-            for(int j = 0; j < worldSize; j++)
-                units[i][j] = null;
-        units[4][3] = new UnitImpl(GameConstants.SETTLER,
-                Player.RED);
-        units[2][0] = new UnitImpl(GameConstants.ARCHER,
-                Player.RED);
-        units[3][2] = new UnitImpl(GameConstants.LEGION,
-                Player.BLUE);
-    }
-    // set up the initial cities in the game
-    private void setupCities(int worldSize) {
-        cities = new City[worldSize][worldSize];
-        for (int i = 0; i < worldSize; i++) {
-            for (int j = 0; j < worldSize; j++) {
-                cities[i][j] = null;
-            }
-        }
-        cities[1][1] = new CityImpl(Player.RED);
-        cities[4][1] = new CityImpl(Player.BLUE);
 
-    }
 
     private void produce(Player p) {
         int ws = GameConstants.WORLDSIZE;
