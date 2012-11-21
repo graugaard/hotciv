@@ -105,10 +105,8 @@ public class GameImpl implements Game {
     public void changeProductionInCityAt( Position p, String unitType ) {
         City c = getCityAt(p);
         c.setProduction(unitType);
-
     }
     public void performUnitActionAt( Position p ) {
-
         Unit u = getUnitAt(p);
         if (u != null){
             UnitImpl unit = (UnitImpl) u;
@@ -138,8 +136,6 @@ public class GameImpl implements Game {
                     units[i][j].setMoveCount(1);
 
     }
-
-
 
     private void produce(Player p) {
         int ws = GameConstants.WORLDSIZE;
