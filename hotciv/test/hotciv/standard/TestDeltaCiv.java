@@ -38,4 +38,27 @@ public class TestDeltaCiv {
 		assertNotNull("City at (4,5)", c);
 		assertEquals("Should have blue owner", Player.BLUE, c.getOwner());
 	}
+	
+	@Test
+	public void ShouldPlaceUnitsCorrectly() {
+		Unit[][] units = wg.generateUnits();
+		assertNull("no units at (6,7)", units[6][7]);
+		Unit u = units[2][0];
+		assertNotNull("Unit at (2,0)", u);
+		assertEquals("Unit is archer", GameConstants.ARCHER, 
+				u.getTypeString());
+		assertEquals("Belongs to red", Player.RED, u.getOwner());
+		
+		u = units[3][2];
+		assertNotNull("Unit at (3,2)", u);
+		assertEquals("Unit is legion", GameConstants.LEGION, 
+				u.getTypeString());
+		assertEquals("Belongs to blue", Player.BLUE, u.getOwner());
+		
+		u = units[4][3];
+		assertNotNull("Unit at (4,3)", u);
+		assertEquals("Unit is settler", GameConstants.SETTLER, 
+				u.getTypeString());
+		assertEquals("Belongs to red", Player.RED, u.getOwner());
+	}
 }
