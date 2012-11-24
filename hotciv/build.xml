@@ -126,6 +126,7 @@ HotCiv build management.
       <arg value="hotciv.standard.TestGammaUnitAction"/>
       <arg value="hotciv.standard.TestIntegration"/>
       <arg value="hotciv.standard.TestDeltaCiv"/>
+    	<arg value="hotciv.standard.TestStringWorldGeneration"/>
       <classpath refid="class-path"/>
     </java>
   </target>
