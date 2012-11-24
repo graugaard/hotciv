@@ -2,9 +2,12 @@ package hotciv.standard;
 
 import hotciv.factories.AlphaFactory;
 import hotciv.framework.City;
+import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
+import hotciv.framework.WorldGeneration;
+import hotciv.standard.utilities.StringWorldGeneration;
 
 import java.util.*;
 
@@ -82,6 +85,47 @@ public class TestGameImpl {
 				new Position(4,4), positions.get(21));
 		assertEquals("(4,6) is at index 23",
 				new Position(4,6), positions.get(23));
+	}
+	
+	@Test
+	public void ShouldHandleRectangularWorldsPositions() {
+		String[] tiles = { "..ffMOh", "hh..Off" };
+		String[] cities = { "B.....R", "......R" };
+		String[] units = { "..AASL.", "llaass." };
+		WorldGeneration wg = new StringWorldGeneration( tiles,
+				cities, units);
+		g = new GameImpl( new AlphaFactory(), wg);
+		
+		positions = g.getPositions(new Position(0,6), 1);
+		assertEquals( "3 tiles", 3, positions.size());
+		assertEquals( "(1,6) is at index 0", 
+				new Position( 1, 6 ), positions.get(0) );
+		assertEquals( "(0,5) is at index 2",
+				new Position( 0, 5 ), positions.get(2));
+		
+		positions = g.getPositions( new Position( 1, 0 ), 1);
+		assertEquals( "3 tiles", 3, positions.size());
+		assertEquals( "(0,0) is at index 0", 
+				new Position( 0,0 ), positions.get(0) );
+		assertEquals( "(1,1) is at index 2",
+				new Position( 1, 1 ), positions.get(2));
+	}
+	
+	@Test
+	public void ShouldSpawnCorrectlyInRectangularWorld() {
+		String[] t = { ".", "." };
+		String[] c = { "R", "." };
+		String[] u = { "A", "." };
+		WorldGeneration wg = new StringWorldGeneration( t, c, u );
+		g = new GameImpl( new AlphaFactory(), wg);
+		g.changeProductionInCityAt(new Position( 0, 0 ), GameConstants.ARCHER);
+		g.endOfTurn();
+		g.endOfTurn();
+		Position p = new Position( 1, 0 );
+		assertNull( "No unit at (1,0)", g.getUnitAt( p ));
+		g.endOfTurn();
+		g.endOfTurn();
+		assertNotNull( "unit at (1,0)", g.getUnitAt( p ));
 	}
 	
 	@Test

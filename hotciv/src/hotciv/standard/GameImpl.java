@@ -32,6 +32,8 @@ public class GameImpl implements ExtendedGame {
     private AgeStrategy ageStrategy;
     private WinnerStrategy winnerStrategy;
     private UnitActionStrategy unitActionStrategy;
+    private int height;
+    private int width;
 
     /**
      * Make a new Alphaciv game, fresh to be used
@@ -40,6 +42,8 @@ public class GameImpl implements ExtendedGame {
         this.units = world.generateUnits();
         this.tiles = world.generateTiles();
         this.cities = world.generateCities();
+        this.height = world.getWorldHeight();
+        this.width = world.getWorldWidth();
         playerInTurn = Player.RED;
         age = -4000;
         firstRound = true;
@@ -123,30 +127,31 @@ public class GameImpl implements ExtendedGame {
 
 
     public int dist(Position p1, Position p2) {
-        int x = Math.abs(p1.getRow()-p2.getRow());
-        int y = Math.abs(p1.getColumn() - p2.getColumn());
-        return Math.max(x,y);
+        int row = Math.abs(p1.getRow()-p2.getRow());
+        int column = Math.abs(p1.getColumn() - p2.getColumn());
+        return Math.max( row, column);
     }
     //used to reset all units movevalue at the beginning of a new round
-    public void resetMove(){
-        int size = GameConstants.WORLDSIZE;
-        for(int i = 0; i < size; i++)
-            for(int j = 0; j < size; j++)
-                if (units[i][j]!= null)
+    public void resetMove() {
+        for(int i = 0; i < height; i++) {
+            for(int j = 0; j < width; j++) {
+                if (units[i][j]!= null) {
                     units[i][j].setMoveCount(1);
-
+                }
+            }
+        }
     }
 
     private void produce(Player p) {
-        int ws = GameConstants.WORLDSIZE;
-        for(int i = 0; i< ws; i++) {
-            for(int j = 0; j < ws; j++) {
-                City c =  getCityAt(new Position(i,j));
+        for(int i = 0; i< height; i++) {
+            for(int j = 0; j < width; j++) {
+            	Position pos = new Position( i, j);
+                City c =  getCityAt( pos );
                 if (c != null && c.getOwner() == p) {
                     c.addProduction(6);
                     String prod = c.getProduction();
                     if(c.getProductionValue() >= unitCost(prod)){
-                        setUnit(new UnitImpl(prod, p), new Position(i,j));
+                        spawnUnit(new UnitImpl(prod, p), pos );
                         c.addProduction(-unitCost(prod));
                     }
                 }
@@ -166,11 +171,11 @@ public class GameImpl implements ExtendedGame {
     /* Sets the unit at first available position. Returns true if
     * unit could be set
     */
-    private boolean setUnit(Unit u, Position center) {
+    private boolean spawnUnit(Unit u, Position center) {
         int dist = 0; // we first check if unit can be placed in city
         boolean unitSet = false;
         // once dist is greater than how big the world is, we can't find anymore positions
-        while(dist <= GameConstants.WORLDSIZE && !unitSet) {
+        while(dist <= Math.max(width, height) && !unitSet) {
             List<Position> positions = getPositions(center, dist);
             for (Position p : positions) {
                 if (getUnitAt(p) == null) {
@@ -205,40 +210,40 @@ public class GameImpl implements ExtendedGame {
             result.add(center);
         }
         else if (dist > 0) {
-            int x = center.getRow();
-            int y = center.getColumn();
+            int row = center.getRow();
+            int column = center.getColumn();
             /* Before we enter a loop, check that the coordinate we fix
                 * will lie inside the world. We use that x and y already are
                 * valid positions
                 */
-            int ws = GameConstants.WORLDSIZE;
-            if (x - dist >= 0) {
-                for (int i = y; i < y+dist && i < ws; i++) {
-                    result.add(new Position(x-dist,i));
+            if (row - dist >= 0) {
+                for (int i = column; i < column+dist && i < width; i++) {
+                    result.add(new Position(row-dist,i));
                 }
             }
-            if (y + dist < ws) {
+            if (column + dist < width) {
                 // if x - dist < 0, start from where we enter world again
-                int xStart = Math.max(0, x-dist);
-                for (int i = xStart; i < x+dist && i < ws; i++) {
-                    result.add(new Position(i,y+dist));
+                int rowStart = Math.max(0, row-dist);
+                for (int i = rowStart; i < row+dist && i < height; i++) {
+                    result.add(new Position(i,column+dist));
                 }
             }
-            if (x + dist < ws) {
+            if (row + dist < height) {
                 // if y + dist >= worldsize, start from when enter world again
-                int yStart = Math.min(ws - 1, y + dist);
-                for (int i = yStart; i > y-dist && i >= 0; i--){
-                    result.add(new Position(x+dist,i));
+                int columnStart = Math.min(width - 1, column + dist);
+                for (int i = columnStart; i > column-dist && i >= 0; i--){
+                    result.add(new Position(row+dist,i));
                 }
             }
-            if (y - dist >= 0) {
+            if (column - dist >= 0) {
                 // start from when the world exists
-                int xStart = Math.min(ws - 1, x + dist);
-                for (int i = xStart; i > x-dist && i >= 0; i--) {
-                    result.add(new Position(i,y-dist));
-                }
-                for (int i = y-dist; i < y; i++) {
-                    result.add(new Position(x-dist,i));
+                int rowStart = Math.min(height - 1, row + dist);
+                for (int i = rowStart; i > row-dist && i >= 0; i--) {
+                    result.add(new Position(i,column-dist));
+                } if ( row - dist >= 0) {
+	                for (int i = column-dist; i < column; i++) {
+	                    result.add(new Position(row-dist,i));
+	                }
                 }
             }
         }

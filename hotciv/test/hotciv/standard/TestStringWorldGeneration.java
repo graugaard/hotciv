@@ -56,16 +56,16 @@ public class TestStringWorldGeneration {
 		Tile[][] tiles = wg.generateTiles();
 		assertEquals("(0,0) is plains", GameConstants.PLAINS,
 				tiles[0][0].getTypeString());
-		assertEquals("(1,0) is ocean", GameConstants.OCEANS,
-				tiles[1][0].getTypeString());
-		assertEquals("(2,0) is mountains", GameConstants.MOUNTAINS,
-				tiles[2][0].getTypeString());
-		assertEquals("(3,0) is forest", GameConstants.FOREST,
-				tiles[3][0].getTypeString());
-		assertEquals("(4,0) is hills", GameConstants.HILLS,
-				tiles[4][0].getTypeString());
+		assertEquals("(0,1) is ocean", GameConstants.OCEANS,
+				tiles[0][1].getTypeString());
+		assertEquals("(0,2) is mountains", GameConstants.MOUNTAINS,
+				tiles[0][2].getTypeString());
+		assertEquals("(0,3) is forest", GameConstants.FOREST,
+				tiles[0][3].getTypeString());
+		assertEquals("(0,4) is hills", GameConstants.HILLS,
+				tiles[0][4].getTypeString());
 		assertEquals("(1,3) is plains", GameConstants.PLAINS,
-				tiles[3][1].getTypeString());
+				tiles[1][3].getTypeString());
 	}
 	
 	@Test
@@ -79,16 +79,16 @@ public class TestStringWorldGeneration {
 		Tile[][] tiles = wg.generateTiles();
 		assertEquals("(0,0) is plains", GameConstants.PLAINS,
 				tiles[0][0].getTypeString());
-		assertEquals("(1,0) is ocean", GameConstants.OCEANS,
-				tiles[1][0].getTypeString());
-		assertEquals("(2,0) is mountains", GameConstants.MOUNTAINS,
-				tiles[2][0].getTypeString());
-		assertEquals("(3,0) is forest", GameConstants.FOREST,
-				tiles[3][0].getTypeString());
-		assertEquals("(4,0) is hills", GameConstants.HILLS,
-				tiles[4][0].getTypeString());
+		assertEquals("(0,1) is ocean", GameConstants.OCEANS,
+				tiles[0][1].getTypeString());
+		assertEquals("(0,2) is mountains", GameConstants.MOUNTAINS,
+				tiles[0][2].getTypeString());
+		assertEquals("(0,3) is forest", GameConstants.FOREST,
+				tiles[0][3].getTypeString());
+		assertEquals("(0,4) is hills", GameConstants.HILLS,
+				tiles[0][4].getTypeString());
 		assertEquals("(1,3) is plains", GameConstants.PLAINS,
-				tiles[3][1].getTypeString());
+				tiles[1][3].getTypeString());
 	}
 	
 	@Test
@@ -100,18 +100,18 @@ public class TestStringWorldGeneration {
 				worldCities, worldUnits);
 		City[][] cities = wg.generateCities();
 		assertNull("No city at (0,0)", cities[0][0]);
-		assertNotNull("City at (2,0)", cities[2][0]);
-		assertEquals("Red city at(2,0)", Player.RED,
-				cities[2][0].getOwner());
+		assertNotNull("City at (0,2)", cities[0][2]);
+		assertEquals("Red city at (0,2)", Player.RED,
+				cities[0][2].getOwner());
 		
-		assertNotNull("City at (0,1)", cities[0][1]);
-		assertEquals("Red city at(0,1)", Player.RED,
-				cities[0][1].getOwner());
+		assertNotNull("City at (1,0)", cities[1][0]);
+		assertEquals("Red city at (1,0)", Player.RED,
+				cities[1][0].getOwner());
 		
 		assertNotNull("City at (1,1)", cities[1][1]);
 		assertEquals("Blue city at(1,1)", Player.BLUE,
 				cities[1][1].getOwner());
-		assertNull("No city at (1,2)", cities[1][2]);
+		assertNull("No city at (2,1)", cities[2][1]);
 		assertNull("No city at (2,2)", cities[2][2]);
 	}
 	
@@ -125,18 +125,18 @@ public class TestStringWorldGeneration {
 		wg = new StringWorldGeneration( combined );
 		City[][] cities = wg.generateCities();
 		assertNull("No city at (0,0)", cities[0][0]);
-		assertNotNull("City at (2,0)", cities[2][0]);
-		assertEquals("Red city at(2,0)", Player.RED,
-				cities[2][0].getOwner());
+		assertNotNull("City at (0,2)", cities[0][2]);
+		assertEquals("Red city at (0,2)", Player.RED,
+				cities[0][2].getOwner());
 		
-		assertNotNull("City at (0,1)", cities[0][1]);
-		assertEquals("Red city at(0,1)", Player.RED,
-				cities[0][1].getOwner());
+		assertNotNull("City at (1,0)", cities[1][0]);
+		assertEquals("Red city at (1,0)", Player.RED,
+				cities[1][0].getOwner());
 		
 		assertNotNull("City at (1,1)", cities[1][1]);
 		assertEquals("Blue city at(1,1)", Player.BLUE,
 				cities[1][1].getOwner());
-		assertNull("No city at (1,2)", cities[1][2]);
+		assertNull("No city at (2,1)", cities[2][1]);
 		assertNull("No city at (2,2)", cities[2][2]);
 	}
 	
@@ -148,25 +148,25 @@ public class TestStringWorldGeneration {
 		wg = new StringWorldGeneration( tiles, cities, worldUnits );
 		Unit[][] units = wg.generateUnits();
 		assertNull( "No units at (0,0)", units[0][0] );
-		assertNull( "No units at (3,1)", units[3][1] );
-		
-		assertNotNull( "Unit at (1,0)", units[1][0] );
-		assertEquals( "Red unit at (1,0)", Player.RED, 
-				units[1][0].getOwner() );
-		assertEquals( "Archer at (1,0)", GameConstants.ARCHER, 
-				units[1][0].getTypeString() );
+		assertNull( "No units at (1,3)", units[1][3] );
 		
 		assertNotNull( "Unit at (0,1)", units[0][1] );
 		assertEquals( "Red unit at (0,1)", Player.RED, 
 				units[0][1].getOwner() );
-		assertEquals( "Settler at (0,1)", GameConstants.SETTLER, 
+		assertEquals( "Archer at (0,1)", GameConstants.ARCHER, 
 				units[0][1].getTypeString() );
 		
-		assertNotNull( "Unit at (1,2)", units[1][2] );
-		assertEquals( "Red unit at (1,2)", Player.RED, 
-				units[1][2].getOwner() );
-		assertEquals( "Legion at (1,2)", GameConstants.LEGION, 
-				units[1][2].getTypeString() );
+		assertNotNull( "Unit at (1,0)", units[1][0] );
+		assertEquals( "Red unit at (1,0)", Player.RED, 
+				units[1][0].getOwner() );
+		assertEquals( "Settler at (1,0)", GameConstants.SETTLER, 
+				units[1][0].getTypeString() );
+		
+		assertNotNull( "Unit at (2,1)", units[2][1] );
+		assertEquals( "Red unit at (2,1)", Player.RED, 
+				units[2][1].getOwner() );
+		assertEquals( "Legion at (2,1)", GameConstants.LEGION, 
+				units[2][1].getTypeString() );
 	}
 	
 	@Test
@@ -177,25 +177,25 @@ public class TestStringWorldGeneration {
 		wg = new StringWorldGeneration( tiles, cities, worldUnits );
 		Unit[][] units = wg.generateUnits();
 		assertNull( "No units at (0,0)", units[0][0] );
-		assertNull( "No units at (3,1)", units[3][1] );
+		assertNull( "No units at (1,3)", units[1][3] );
 
-		assertNotNull( "Unit at (3,0)", units[3][0] );
-		assertEquals( "Blue unit at (3,0)", Player.BLUE, 
-				units[3][0].getOwner() );
+		assertNotNull( "Unit at (0,3)", units[0][3] );
+		assertEquals( "Blue unit at (0,3)", Player.BLUE, 
+				units[0][3].getOwner() );
 		assertEquals( "Legion at (3,0)", GameConstants.LEGION, 
-				units[3][0].getTypeString() );
+				units[0][3].getTypeString() );
 
-		assertNotNull( "Unit at (2,1)", units[2][1] );
-		assertEquals( "Blue unit at (2,1)", Player.BLUE, 
-				units[2][1].getOwner() );
-		assertEquals( "Archer at (2,1)", GameConstants.ARCHER, 
-				units[2][1].getTypeString() );
+		assertNotNull( "Unit at (1,2)", units[1][2] );
+		assertEquals( "Blue unit at (1,2)", Player.BLUE, 
+				units[1][2].getOwner() );
+		assertEquals( "Archer at (1,2)", GameConstants.ARCHER, 
+				units[1][2].getTypeString() );
 		
-		assertNotNull( "Unit at (3,2)", units[3][2] );
-		assertEquals( "Blue unit at (3,2)", Player.BLUE, 
-				units[3][2].getOwner() );
-		assertEquals( "Settler at (3,2)", GameConstants.SETTLER, 
-				units[3][2].getTypeString() );
+		assertNotNull( "Unit at (2,3)", units[2][3] );
+		assertEquals( "Blue unit at (2,3)", Player.BLUE, 
+				units[2][3].getOwner() );
+		assertEquals( "Settler at (2,3)", GameConstants.SETTLER, 
+				units[2][3].getTypeString() );
 	}
 	
 	@Test
@@ -207,25 +207,25 @@ public class TestStringWorldGeneration {
 		wg = new StringWorldGeneration( combined );
 		Unit[][] units = wg.generateUnits();
 		assertNull( "No units at (0,0)", units[0][0] );
-		assertNull( "No units at (3,1)", units[3][1] );
-		
-		assertNotNull( "Unit at (1,0)", units[1][0] );
-		assertEquals( "Red unit at (1,0)", Player.RED, 
-				units[1][0].getOwner() );
-		assertEquals( "Archer at (1,0)", GameConstants.ARCHER, 
-				units[1][0].getTypeString() );
+		assertNull( "No units at (1,3)", units[1][3] );
 		
 		assertNotNull( "Unit at (0,1)", units[0][1] );
 		assertEquals( "Red unit at (0,1)", Player.RED, 
 				units[0][1].getOwner() );
-		assertEquals( "Settler at (0,1)", GameConstants.SETTLER, 
+		assertEquals( "Archer at (0,1)", GameConstants.ARCHER, 
 				units[0][1].getTypeString() );
 		
-		assertNotNull( "Unit at (1,2)", units[1][2] );
-		assertEquals( "Red unit at (1,2)", Player.RED, 
-				units[1][2].getOwner() );
-		assertEquals( "Legion at (1,2)", GameConstants.LEGION, 
-				units[1][2].getTypeString() );
+		assertNotNull( "Unit at (1,0)", units[1][0] );
+		assertEquals( "Red unit at (1,0)", Player.RED, 
+				units[1][0].getOwner() );
+		assertEquals( "Settler at (1,0)", GameConstants.SETTLER, 
+				units[1][0].getTypeString() );
+		
+		assertNotNull( "Unit at (2,1)", units[2][1] );
+		assertEquals( "Red unit at (2,1)", Player.RED, 
+				units[2][1].getOwner() );
+		assertEquals( "Legion at (2,1)", GameConstants.LEGION, 
+				units[2][1].getTypeString() );
 	}
 	
 	@Test
@@ -237,24 +237,24 @@ public class TestStringWorldGeneration {
 		wg = new StringWorldGeneration( combined );
 		Unit[][] units = wg.generateUnits();
 		assertNull( "No units at (0,0)", units[0][0] );
-		assertNull( "No units at (3,1)", units[3][1] );
+		assertNull( "No units at (1,3)", units[1][3] );
 
-		assertNotNull( "Unit at (3,0)", units[3][0] );
-		assertEquals( "Blue unit at (3,0)", Player.BLUE, 
-				units[3][0].getOwner() );
+		assertNotNull( "Unit at (0,3)", units[0][3] );
+		assertEquals( "Blue unit at (0,3)", Player.BLUE, 
+				units[0][3].getOwner() );
 		assertEquals( "Legion at (3,0)", GameConstants.LEGION, 
-				units[3][0].getTypeString() );
+				units[0][3].getTypeString() );
 
-		assertNotNull( "Unit at (2,1)", units[2][1] );
-		assertEquals( "Blue unit at (2,1)", Player.BLUE, 
-				units[2][1].getOwner() );
-		assertEquals( "Archer at (2,1)", GameConstants.ARCHER, 
-				units[2][1].getTypeString() );
+		assertNotNull( "Unit at (1,2)", units[1][2] );
+		assertEquals( "Blue unit at (1,2)", Player.BLUE, 
+				units[1][2].getOwner() );
+		assertEquals( "Archer at (1,2)", GameConstants.ARCHER, 
+				units[1][2].getTypeString() );
 		
-		assertNotNull( "Unit at (3,2)", units[3][2] );
-		assertEquals( "Blue unit at (3,2)", Player.BLUE, 
-				units[3][2].getOwner() );
-		assertEquals( "Settler at (3,2)", GameConstants.SETTLER, 
-				units[3][2].getTypeString() );
+		assertNotNull( "Unit at (2,3)", units[2][3] );
+		assertEquals( "Blue unit at (2,3)", Player.BLUE, 
+				units[2][3].getOwner() );
+		assertEquals( "Settler at (2,3)", GameConstants.SETTLER, 
+				units[2][3].getTypeString() );
 	}
 }

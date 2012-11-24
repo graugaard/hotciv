@@ -76,12 +76,12 @@ public class StringWorldGeneration implements WorldGeneration {
 	}
 
 	public Tile[][] generateTiles() {
-		Tile[][] worldTiles = new Tile[width][height];
+		Tile[][] worldTiles = new Tile[height][width];
 		// go through all tile data, set up correct tiles
-		for (int y = 0; y < height; y++) {
-			String currentRow = tileData[y];
-			for (int x = 0; x < width; x++){
-				char c = currentRow.charAt(x);
+		for (int row = 0; row < height; row++) {
+			String currentRow = tileData[row];
+			for (int column = 0; column < width; column++){
+				char c = currentRow.charAt(column);
 				Tile t = null;
 				if ( c == '.') {
 					t = new TileImpl(GameConstants.PLAINS);
@@ -98,18 +98,18 @@ public class StringWorldGeneration implements WorldGeneration {
 				if ( c == 'h' ) {
 					t = new TileImpl(GameConstants.HILLS);
 				}
-				worldTiles[x][y] = t;
+				worldTiles[row][column] = t;
 			}
 		}
 		return worldTiles;
 	}
 
 	public City[][] generateCities() {
-		City[][] worldCities = new City[width][height];
-		for ( int y = 0; y < height; y++ ) {
-			String currentRow = cityData[y];
-			for (int x = 0; x < width; x++) {
-				char c = currentRow.charAt(x);
+		City[][] worldCities = new City[height][width];
+		for ( int row = 0; row < height; row++ ) {
+			String currentRow = cityData[row];
+			for (int column = 0; column < width; column++) {
+				char c = currentRow.charAt(column);
 				City city = null;
 				if ( c == 'R' ) {
 					city = new CityImpl(Player.RED);
@@ -118,18 +118,18 @@ public class StringWorldGeneration implements WorldGeneration {
 				} if ( c == '.') {
 					city = null;
 				}
-				worldCities[x][y] = city;
+				worldCities[row][column] = city;
 			}
 		}
 		return worldCities;
 	}
 
 	public Unit[][] generateUnits() {
-		Unit[][] worldUnits = new Unit[width][height];
-		for ( int y = 0; y < height; y++ ) {
-			String currentRow = unitData[y];
-			for ( int x = 0; x < width; x++ ) {
-				char c = currentRow.charAt(x);
+		Unit[][] worldUnits = new Unit[height][width];
+		for ( int row = 0; row < height; row++ ) {
+			String currentRow = unitData[row];
+			for ( int column = 0; column < width; column++ ) {
+				char c = currentRow.charAt(column);
 				Unit u = null;
 				if ( c == 'A' ) {
 					u = new UnitImpl( GameConstants.ARCHER, Player.RED );
@@ -144,7 +144,7 @@ public class StringWorldGeneration implements WorldGeneration {
 				} if ( c == 's' ) {
 					u = new UnitImpl( GameConstants.SETTLER, Player.BLUE );
 				}
-				worldUnits[x][y] = u;
+				worldUnits[row][column] = u;
 			}
 		}
 		return worldUnits;
