@@ -1,5 +1,6 @@
 package hotciv.standard;
 
+import hotciv.factories.AlphaFactory;
 import hotciv.framework.*;
 
 import org.junit.*;

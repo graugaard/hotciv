@@ -1,5 +1,6 @@
 package hotciv.framework;
 
+
 /** Game is the central interface allowing a client to access and
  * modify the state of a HotCiv game.  
    This source code is from the book 

@@ -1,6 +1,7 @@
 package hotciv.standard;
 
 import hotciv.framework.*;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 

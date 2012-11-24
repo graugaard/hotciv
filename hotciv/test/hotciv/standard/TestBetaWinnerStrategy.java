@@ -1,6 +1,8 @@
 package hotciv.standard;
 
+import hotciv.factories.BetaFactory;
 import hotciv.framework.*;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 

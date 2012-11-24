@@ -1,6 +1,10 @@
 package hotciv.standard;
 
+import hotciv.factories.AlphaFactory;
+import hotciv.factories.BetaFactory;
+import hotciv.factories.GammaFactory;
 import hotciv.framework.*;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 public class TestIntegration {

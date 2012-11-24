@@ -21,7 +21,7 @@ import hotciv.framework.*;
  commercial use, see http://www.baerbak.com/
  */
 
-public class GameImpl implements Game {
+public class GameImpl implements ExtendedGame {
 
     private Unit[][] units;
     private Tile[][] tiles;
@@ -81,7 +81,7 @@ public class GameImpl implements Game {
             else {
                 u.setMoveCount(0);
                 units[to.getRow()][to.getColumn()] = u;
-                units[from.getRow()][from.getColumn()] = null;
+                removeUnitAt(from);
                 return true;
             }
         }
@@ -194,8 +194,9 @@ public class GameImpl implements Game {
      * @return The list of positions, ordered by starting due north and going around clockwise.
      * @return The list has size 0 if no such positions exist.
      */
-    public List<Position> getPositions(Position center, int dist) {
+    public List<Position> getPositions(Position center, int distance) {
         List<Position> result = new ArrayList<Position>();
+        int dist = distance;
         /* Start at position due north that is distance dist away.
            * Add it and continue counter clockwise to add positions.
            * Stop when we are back at position due north
@@ -243,4 +244,20 @@ public class GameImpl implements Game {
         }
         return result;
     }
+
+	@Override
+	public void removeUnitAt(Position p) {
+		units[p.getRow()][p.getColumn()] = null;
+	}
+
+	@Override
+	public void addCity(City c, Position p) {
+		cities[p.getRow()][p.getColumn()] = c;
+	}
+
+	@Override
+	public List<Battle> getBattleHistory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

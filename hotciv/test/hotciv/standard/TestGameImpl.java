@@ -1,6 +1,10 @@
 package hotciv.standard;
 
+import hotciv.factories.AlphaFactory;
+import hotciv.framework.City;
+import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.framework.Unit;
 
 import java.util.*;
 
@@ -102,6 +106,35 @@ public class TestGameImpl {
 	public void ShouldNotGetAnyPositionsWhenDistanceIsNegative() {
 		positions = g.getPositions(new Position(4,5), -5);
 		assertEquals("No positions in negative distance", 0, positions.size());
+	}
+	
+	@Test
+	public void ShouldRemoveUnitCorrectly() {
+		Position p1 = new Position( 4, 3 );
+		Position p2 = new Position ( 3, 2);
+		Unit u1 = g.getUnitAt( p1 );
+		Unit u2 = g.getUnitAt( p2 );
+		assertNotNull( "There is a unit at (4,3)", u1 );
+		assertNotNull( "There is a unit at (3,2)", u2 );
+		g.removeUnitAt( p1 );
+		g.removeUnitAt( p2 );
+		u1 = g.getUnitAt( p1 );
+		u2 = g.getUnitAt ( p2 );
+		assertNull( "No unit at (4,3)", u1 );
+		assertNull( "No unit at (3,2)", u2 );
+	}
+	
+	@Test
+	public void ShouldAddCityCorrectly() {
+		Position p = new Position( 8, 8 );
+		CityImpl ci = new CityImpl( Player.RED);
+		City c = g.getCityAt(p);
+		assertNull("There is no city at (8,8)", c);
+		g.addCity(ci, p);
+		c = g.getCityAt(p);
+		assertNotNull("There is a city at (8,8)", c);
+		assertEquals("Red owns city at (8,8)", 
+				Player.RED, c.getOwner());
 	}
 
 }

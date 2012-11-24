@@ -1,4 +1,6 @@
 package hotciv.framework;
+
+
 /**
  * An interface to handle the new world generation
  * @author jakob
