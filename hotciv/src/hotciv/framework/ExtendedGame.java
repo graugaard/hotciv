@@ -2,8 +2,6 @@ package hotciv.framework;
 
 import java.util.List;
 
-import hotciv.standard.CityImpl;
-
 /**
  * This interface extends the game interface with
  * mutator methods
@@ -44,4 +42,11 @@ public interface ExtendedGame extends Game {
 	 * @return The list of positions
 	 */
 	public List<Position> getPositions(Position center, int distance);
+	
+	/**
+	 * A list of cities in the world. Ordered lexographically by position, e.g.
+	 * (x,y) > (x',y') if x > x' and if x = x', y > y'.
+	 * @return The list
+	 */
+	public List<City> getCities();
 }

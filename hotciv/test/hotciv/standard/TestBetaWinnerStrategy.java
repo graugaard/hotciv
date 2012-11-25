@@ -1,7 +1,10 @@
 package hotciv.standard;
 
+import hotciv.common.GameImpl;
 import hotciv.factories.BetaFactory;
 import hotciv.framework.*;
+import hotciv.strategy.BetaWinnerStrategy;
+import hotciv.strategy.WinnerStrategy;
 
 import org.junit.*;
 import static org.junit.Assert.*;

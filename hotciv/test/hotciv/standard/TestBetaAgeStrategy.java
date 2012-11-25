@@ -1,6 +1,8 @@
 package hotciv.standard;
 
 import hotciv.framework.*;
+import hotciv.strategy.AgeStrategy;
+import hotciv.strategy.BetaAgeStrategy;
 
 import org.junit.*;
 import static org.junit.Assert.*;

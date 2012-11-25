@@ -2,6 +2,7 @@ package hotciv.standard;
 
 
 import hotciv.framework.*;
+import hotciv.strategy.UnitActionStrategy;
 
 public class GammaUnitActionStrategy implements UnitActionStrategy{
     public UnitAction returnAction(Unit thisUnit){

@@ -1,5 +1,7 @@
 package hotciv.standard;
 
+import hotciv.common.CityImpl;
+import hotciv.common.GameImpl;
 import hotciv.factories.AlphaFactory;
 import hotciv.framework.City;
 import hotciv.framework.GameConstants;
@@ -181,4 +183,31 @@ public class TestGameImpl {
 				Player.RED, c.getOwner());
 	}
 
+	@Test
+	public void ShouldGiveCitiesInTheWorldCorrectly() {
+		String[] t = { "....", "....", "...." };
+		String[] cities = { "R..B", ".BBR", "BRB." };
+		String[] u = t;
+		WorldGeneration wg = new StringWorldGeneration( t, cities, u );
+		g = new GameImpl(new AlphaFactory(), wg);
+		List<City> list = g.getCities();
+		
+		assertEquals( "There should be 8 in list", 8, list.size() );
+		assertEquals( "Red city at index 0", 
+				Player.RED, list.get(0).getOwner() );
+		assertEquals( "Blue city at index 1",
+				Player.BLUE, list.get(1).getOwner() );
+		assertEquals( "Red city at index 2", 
+				Player.BLUE, list.get(2).getOwner() );
+		assertEquals( "Blue city at index 3",
+				Player.BLUE, list.get(3).getOwner() );
+		assertEquals( "Red city at index 4", 
+				Player.RED, list.get(4).getOwner() );
+		assertEquals( "Blue city at index 5",
+				Player.BLUE, list.get(5).getOwner() );
+		assertEquals( "Red city at index 6", 
+				Player.RED, list.get(6).getOwner() );
+		assertEquals( "Blue city at index 7",
+				Player.BLUE, list.get(7).getOwner() );
+	}
 }

@@ -1,5 +1,7 @@
 package hotciv.standard;
 
+import hotciv.common.CityImpl;
+import hotciv.common.GameImpl;
 import hotciv.factories.AlphaFactory;
 import hotciv.framework.*;
 

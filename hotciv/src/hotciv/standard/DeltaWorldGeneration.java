@@ -2,6 +2,9 @@ package hotciv.standard;
 
 import java.util.HashMap;
 
+import hotciv.common.CityImpl;
+import hotciv.common.TileImpl;
+import hotciv.common.UnitImpl;
 import hotciv.framework.*;
 import hotciv.standard.*;
 

@@ -1,12 +1,13 @@
 package hotciv.standard;
 
-import hotciv.framework.AgeStrategy;
+import hotciv.common.CityImpl;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
+import hotciv.strategy.AgeStrategy;
 /**
  * This is a barebones city impl. All that happens is that red owns all cities.
  * @author jakob

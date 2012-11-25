@@ -1,5 +1,8 @@
 package hotciv.standard;
 
+import hotciv.common.CityImpl;
+import hotciv.common.TileImpl;
+import hotciv.common.UnitImpl;
 import hotciv.framework.*;
 public class AlphaWorldGeneration implements WorldGeneration{
 

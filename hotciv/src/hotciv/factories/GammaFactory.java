@@ -1,12 +1,13 @@
 package hotciv.factories;
 
-import hotciv.framework.AgeStrategy;
-import hotciv.framework.GameFactory;
-import hotciv.framework.UnitActionStrategy;
-import hotciv.framework.WinnerStrategy;
-import hotciv.standard.AlphaAgeStrategy;
-import hotciv.standard.AlphaWinnerStrategy;
 import hotciv.standard.GammaUnitActionStrategy;
+import hotciv.strategy.AgeStrategy;
+import hotciv.strategy.AlphaAgeStrategy;
+import hotciv.strategy.AlphaAttack;
+import hotciv.strategy.AlphaWinnerStrategy;
+import hotciv.strategy.AttackStrategy;
+import hotciv.strategy.UnitActionStrategy;
+import hotciv.strategy.WinnerStrategy;
 
 public class GammaFactory implements GameFactory{
     public AgeStrategy makeAgeStrategy() {
@@ -21,4 +22,8 @@ public class GammaFactory implements GameFactory{
     public UnitActionStrategy makeUnitActionStrategy() {
         return new GammaUnitActionStrategy();
     }
+    
+    public AttackStrategy makeAttackStrategy() {
+		return new AlphaAttack();
+	}
 }
