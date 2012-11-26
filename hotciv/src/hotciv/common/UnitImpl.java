@@ -52,7 +52,17 @@ public class UnitImpl implements Unit {
 
     @Override
     public int getAttackingStrength() {
-        return 0;
+    	int res = 0;
+    	if ( type.equals( GameConstants.ARCHER ) ) {
+    		res = 2;
+    	}
+    	if ( type.equals( GameConstants.LEGION ) ) {
+    		res = 4;
+    	}
+    	if ( type.equals( GameConstants.SETTLER ) ) {
+    		res = 0;
+    	}
+        return res;
     }
 
     public void setFortify() {
