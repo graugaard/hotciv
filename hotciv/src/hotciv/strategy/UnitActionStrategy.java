@@ -6,5 +6,5 @@ import hotciv.framework.*;
 
 
 public interface UnitActionStrategy {
-    public boolean returnAction(Position p, Game thisGame);
+    public boolean returnAction(Position p, ExtendedGame thisGame);
 }

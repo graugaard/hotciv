@@ -7,7 +7,7 @@ import hotciv.common.UnitImpl;
 import hotciv.framework.*;
 
 public class GammaUnitActionStrategy implements UnitActionStrategy{
-    public boolean returnAction(Position p, Game thisGame){
+    public boolean returnAction(Position p, ExtendedGame thisGame){
         if (thisGame.getUnitAt(p) != null){
             Unit unit = thisGame.getUnitAt(p);
 
@@ -16,9 +16,9 @@ public class GammaUnitActionStrategy implements UnitActionStrategy{
                     return false;
                 }
                 else {
-                GameImpl g = (GameImpl) thisGame;
-                g.removeUnitAt(p);
-                g.addCity(new CityImpl(unit.getOwner()),p);
+
+                thisGame.removeUnitAt(p);
+                thisGame.addCity(new CityImpl(unit.getOwner()),p);
                 return true;
                 }
             }

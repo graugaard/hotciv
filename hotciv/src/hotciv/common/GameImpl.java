@@ -4,12 +4,7 @@ import java.util.*;
 
 import hotciv.factories.GameFactory;
 import hotciv.framework.*;
-//import hotciv.strategy.*;
-
-import hotciv.strategy.AttackStrategy;
-import hotciv.strategy.UnitActionStrategy;
-import hotciv.strategy.WinnerStrategy;
-import hotciv.strategy.AgeStrategy;
+import hotciv.strategy.*;
 
 /** Skeleton implementation of HotCiv.
 
