@@ -135,18 +135,8 @@ public class GameImpl implements ExtendedGame {
     }
     
     public void performUnitActionAt( Position p ) {
-        Unit u = getUnitAt(p);
-        if (u != null){
-            UnitImpl unit = (UnitImpl) u;
-            if (unitActionStrategy.returnAction(u) == UnitAction.FORTIFY){
-                unit.setFortify();
-            }
-            else if(unitActionStrategy.returnAction(u) == UnitAction.BUILD_CITY){
-                Player uOwner = u.getOwner();
-                units[p.getRow()][p.getColumn()] = null;
-                cities[p.getRow()][p.getColumn()] = new CityImpl(uOwner);
-            }
-        }
+        unitActionStrategy.returnAction(p, this);
+
     }
 
 
@@ -219,7 +209,7 @@ public class GameImpl implements ExtendedGame {
      * is the first in the list and they come clockwise
      * Precondition: center is a valid position in world
      * @param center The center from which we measure the distance
-     * @param dist The distance away from the center we retrieve the positions, must be 0 or greater
+     * @param "dist" The distance away from the center we retrieve the positions, must be 0 or greater
      * @return The list of positions, ordered by starting due north and going around clockwise.
      * @return The list has size 0 if no such positions exist.
      */

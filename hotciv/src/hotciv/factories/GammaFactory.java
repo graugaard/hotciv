@@ -1,6 +1,6 @@
 package hotciv.factories;
 
-import hotciv.standard.GammaUnitActionStrategy;
+import hotciv.strategy.GammaUnitActionStrategy;
 import hotciv.strategy.AgeStrategy;
 import hotciv.strategy.AlphaAgeStrategy;
 import hotciv.strategy.AlphaAttack;
