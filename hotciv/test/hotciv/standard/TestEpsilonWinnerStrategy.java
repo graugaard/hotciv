@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class TestEpsilonWinnerStrategy {
 
-    Game g = new GameImpl(new EpsilonFactory(), new TestEpsilonWorldGeneration());
+    ExtendedGame g = new GameImpl(new EpsilonFactory(), new TestEpsilonWorldGeneration());
     @Test
     public void shouldBeAWinnerAfter3SuccessfulAttacks(){
         g = new GameImpl(new EpsilonFactory(), new TestEpsilonWorldGeneration());
