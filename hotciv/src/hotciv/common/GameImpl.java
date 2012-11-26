@@ -4,7 +4,13 @@ import java.util.*;
 
 import hotciv.factories.GameFactory;
 import hotciv.framework.*;
-import hotciv.strategy.*;
+//import hotciv.strategy.*;
+
+import hotciv.strategy.AttackStrategy;
+import hotciv.strategy.UnitActionStrategy;
+import hotciv.strategy.WinnerStrategy;
+import hotciv.strategy.AgeStrategy;
+
 /** Skeleton implementation of HotCiv.
 
  This source code is from the book
@@ -36,7 +42,8 @@ public class GameImpl implements ExtendedGame {
     private int height;
     private int width;
     private AttackStrategy attackStrategy;
-
+    private List<Battle> battles;
+    private int round;
     /**
      * Make a new Alphaciv game, fresh to be used
      */
@@ -48,11 +55,13 @@ public class GameImpl implements ExtendedGame {
         this.width = world.getWorldWidth();
         playerInTurn = Player.RED;
         age = -4000;
+        round = 1;
         firstRound = true;
         this.ageStrategy = factory.makeAgeStrategy();
         this.winnerStrategy = factory.makeWinnerStrategy();
         this.unitActionStrategy = factory.makeUnitActionStrategy();
         this.attackStrategy = factory.makeAttackStrategy();
+        battles = new ArrayList<Battle>();
     }
 
     public void setAgeStrategy(AgeStrategy useThisStrategy){
@@ -77,7 +86,7 @@ public class GameImpl implements ExtendedGame {
     public int getAge() { return age; }
     
     private boolean attack( Position attacker, Position defender ) {
-    	return attackStrategy.attack(attacker, defender);
+        return attackStrategy.attack(attacker, defender);
     }
     
     public boolean moveUnit( Position from, Position to ) {
@@ -94,8 +103,10 @@ public class GameImpl implements ExtendedGame {
             		boolean success = attack(from, to);
             		if ( success ) {
             			setUnitAt( to, u );
+                        battles.add(new Battle(getUnitAt(from).getOwner(), true, round));
             		}
-            		u.setMoveCount(0);
+                    battles.add(new Battle(getUnitAt(from).getOwner(), false, round));
+                    u.setMoveCount(0);
             		removeUnitAt( from );
             		return true;
             	}
@@ -124,6 +135,7 @@ public class GameImpl implements ExtendedGame {
             age = ageStrategy.calculateNextAge(age);
             produce(Player.RED);
             resetMove();
+            round++;
             firstRound = false;
         }
     }
@@ -275,8 +287,7 @@ public class GameImpl implements ExtendedGame {
 	}
 
 	public List<Battle> getBattleHistory() {
-		// TODO Auto-generated method stub
-		return null;
+		return battles;
 	}
 	
 	public List<City> getCities() {

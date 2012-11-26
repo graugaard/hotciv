@@ -127,6 +127,8 @@ HotCiv build management.
       <arg value="hotciv.standard.TestIntegration"/>
       <arg value="hotciv.standard.TestDeltaCiv"/>
       <arg value="hotciv.standard.TestStringWorldGeneration"/>
+      <arg value="hotciv.standard.TestEpsilonWinnerStrategy"/>
+      <arg value="hotciv.standard.TestEpsilonAttack"/>
       <classpath refid="class-path"/>
     </java>
   </target>
