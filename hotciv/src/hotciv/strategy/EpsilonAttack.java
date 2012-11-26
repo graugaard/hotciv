@@ -3,7 +3,9 @@ package hotciv.strategy;
 import java.util.List;
 
 import hotciv.framework.ExtendedGame;
+import hotciv.framework.GameConstants;
 import hotciv.framework.Position;
+import hotciv.framework.Tile;
 import hotciv.framework.Unit;
 
 public class EpsilonAttack implements AttackStrategy {
@@ -27,7 +29,15 @@ public class EpsilonAttack implements AttackStrategy {
 	
 	public int modifiedAttack( Position attacker ) {
 		Unit u = game.getUnitAt( attacker );
-		return u.getAttackingStrength() + adjBonus( attacker, u );
+		int terrainBonus = 1;
+		Tile t = game.getTileAt( attacker );
+		String terrainType = t.getTypeString();
+		if ( terrainType.equals( GameConstants.HILLS) || 
+				terrainType.equals( GameConstants.FOREST) ) {
+			terrainBonus = 2;
+		}
+		return terrainBonus*( u.getAttackingStrength() + 
+				adjBonus( attacker, u ) );
 	}
 	
 	private int adjBonus( Position p, Unit u) {
