@@ -210,4 +210,44 @@ public class TestGameImpl {
 		assertEquals( "Blue city at index 7",
 				Player.BLUE, list.get(7).getOwner() );
 	}
+	
+	@Test
+	public void ShouldNotBeAbleToEnterMountainsOrOcean() {
+		String[] t = { 	"MOMO",
+					 	"M..O", 
+					 	"MOMO"};
+		String[] c = {	"....",
+						"....",
+						"...." };
+		String[] u = {	"....",
+						".Al.",
+						"...." };
+		
+		WorldGeneration wg = 
+				new StringWorldGeneration( t, c, u );
+		g = new GameImpl( new AlphaFactory(), wg );
+		
+		Position redStart = new Position( 1, 1 );
+		
+		Position m0 = new Position( 1, 0 );
+		assertFalse( "Can't move red archer to mountain",
+				g.moveUnit( redStart, m0 ));
+		g.endOfTurn();
+		
+		Position blueStart = new Position( 1, 2 );
+		Position m1 = new Position( 0, 2 );
+		assertFalse( "Can't move blue legion to mountain",
+				g.moveUnit( blueStart, m1 ));
+		
+		g.endOfTurn();
+		
+		Position oc0 = new Position( 0, 1 );
+		assertFalse( "Can't move red archer to ocean", 
+				g.moveUnit( redStart, oc0 ) );
+		g.endOfTurn();
+		
+		Position oc1 = new Position( 1, 3 );
+		assertFalse( "Can't move blue legion to ocean",
+				g.moveUnit( blueStart, oc1 ));
+	}
 }

@@ -87,32 +87,53 @@ public class GameImpl implements ExtendedGame {
     public boolean moveUnit( Position from, Position to ) {
         Unit u = getUnitAt(from);
         if (u != null) {
-            if (dist(from,to) > u.getMoveCount()) {
+        	if ( !occupiableTerrain( to ) ) {
+        		/* unit can't stand at to */
+        		return false;
+        	} 
+        	if (dist(from,to) > u.getMoveCount()) {
+        		/* we move further than what we can */
                 return false;
-            } else if (u.getOwner() != playerInTurn) {
+            } 
+        	if (u.getOwner() != playerInTurn) {
+        		/* players should only move their own units */
                 return false;
-            } else if (getUnitAt(to) != null ) {
+            } 
+        	if (getUnitAt(to) != null ) {
             	if (getUnitAt(to).getOwner() == u.getOwner()) {
             		return false;
             	} else { // other unit is enemy, we attack
             		boolean success = attack(from, to);
             		if ( success ) {
-            			setUnitAt( to, u );
+            			setUnitAt( to, u ); /*  we allow you to move to victory space */
                         battles.add(new Battle(getUnitAt(from).getOwner(), true, round));
             		}
                     battles.add(new Battle(getUnitAt(from).getOwner(), false, round));
                     u.setMoveCount(0);
+                    /* whether unit wins or not, unit is no longer
+                     * where unit started */
             		removeUnitAt( from );
             		return true;
             	}
-            } else {
+            } else { /* space is free, occupiable and within reach, let us move */
                 u.setMoveCount(0);
                 setUnitAt( to , u );
                 removeUnitAt(from);
                 return true;
             }
         }
-        else return false;
+        else {
+        	/* we don't move empty space */
+        	return false;
+        }
+    }
+    
+    private boolean occupiableTerrain( Position p ) {
+    	Tile t = getTileAt( p );
+    	String type = t.getTypeString();
+    	boolean isMountain = type.equals(GameConstants.MOUNTAINS);
+    	boolean isOcean = type.equals(GameConstants.OCEANS);
+    	return !( isMountain || isOcean );
     }
     
     private void setUnitAt(Position p, Unit u) {
@@ -146,12 +167,12 @@ public class GameImpl implements ExtendedGame {
 
     }
 
-
     public int dist(Position p1, Position p2) {
         int row = Math.abs(p1.getRow()-p2.getRow());
         int column = Math.abs(p1.getColumn() - p2.getColumn());
         return Math.max( row, column);
     }
+    
     //used to reset all units movevalue at the beginning of a new round
     public void resetMove() {
         for(int i = 0; i < height; i++) {

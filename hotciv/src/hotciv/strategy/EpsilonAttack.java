@@ -18,26 +18,25 @@ public class EpsilonAttack implements AttackStrategy {
 	}
 	
 	public boolean attack( Position attacker, Position defender ) {
-		// TODO Auto-generated method stub
-		return false;
+		int d1 = die.rollDie();
+		int d2 = die.rollDie();
+		int atk = modifiedAttack( attacker );
+		int def = modifiedDefence( defender );
+		return d1 * atk > d2 * def;
 	}
 	
 	public int modifiedDefence( Position defender ) {
 		Unit u = game.getUnitAt( defender );
-		return u.getDefensiveStrength() + adjBonus( defender, u );
+		int terBonus = terrainBonus( defender );
+		int adjBonus = adjBonus( defender, u );
+		return terBonus*( u.getDefensiveStrength() + adjBonus );
 	}
 	
 	public int modifiedAttack( Position attacker ) {
 		Unit u = game.getUnitAt( attacker );
-		int terrainBonus = 1;
-		Tile t = game.getTileAt( attacker );
-		String terrainType = t.getTypeString();
-		if ( terrainType.equals( GameConstants.HILLS) || 
-				terrainType.equals( GameConstants.FOREST) ) {
-			terrainBonus = 2;
-		}
-		return terrainBonus*( u.getAttackingStrength() + 
-				adjBonus( attacker, u ) );
+		int terBonus = terrainBonus( attacker );
+		int adjBonus = adjBonus( attacker, u );
+		return terBonus*( u.getAttackingStrength() + adjBonus );
 	}
 	
 	private int adjBonus( Position p, Unit u) {
@@ -48,6 +47,20 @@ public class EpsilonAttack implements AttackStrategy {
 			if ( adjU != null && u.getOwner() == adjU.getOwner() ) {
 				bonus++;
 			}
+		}
+		return bonus;
+	}
+	
+	private int terrainBonus( Position p ) {
+		int bonus = 1; // default value
+		Tile t = game.getTileAt(p);
+		String terrainType = t.getTypeString();
+		// cities grant terrain bonus first
+		if ( game.getCityAt(p) != null ) {
+			bonus = 3;
+		} else if ( terrainType.equals(GameConstants.FOREST) ||
+				terrainType.equals(GameConstants.HILLS)) {
+			bonus = 2;
 		}
 		return bonus;
 	}

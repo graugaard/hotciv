@@ -132,7 +132,7 @@ public class TestAlphaCiv {
         // cant move 2 or more in one turn
         assertFalse("units can't move more than 1",game.moveUnit(new Position(4,3), new Position(6,5)));
         // move limit expended, has moved 2
-        assertFalse("units can't move 1 after moving 1", game.moveUnit(new Position(1, 1), new Position(0, 1)));
+        assertFalse("units can't move 1 after moving 1", game.moveUnit(new Position(1, 1), new Position(2, 1)));
     }
 
     @Test
