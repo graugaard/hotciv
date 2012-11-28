@@ -9,37 +9,34 @@ import hotciv.framework.Tile;
 import hotciv.framework.Unit;
 
 public class EpsilonAttack implements AttackStrategy {
-	
-	ExtendedGame game;
 	DieRoller die;
-	public EpsilonAttack( ExtendedGame game, DieRoller die ) {
-		this.game = game;
+	public EpsilonAttack(  DieRoller die ) {
 		this.die = die;
 	}
 	
-	public boolean attack( Position attacker, Position defender ) {
+	public boolean attack( ExtendedGame game, Position attacker, Position defender ) {
 		int d1 = die.rollDie();
 		int d2 = die.rollDie();
-		int atk = modifiedAttack( attacker );
-		int def = modifiedDefence( defender );
+		int atk = modifiedAttack( game, attacker );
+		int def = modifiedDefence( game, defender );
 		return d1 * atk > d2 * def;
 	}
 	
-	public int modifiedDefence( Position defender ) {
+	public int modifiedDefence( ExtendedGame game, Position defender ) {
 		Unit u = game.getUnitAt( defender );
-		int terBonus = terrainBonus( defender );
-		int adjBonus = adjBonus( defender, u );
+		int terBonus = terrainBonus( game, defender );
+		int adjBonus = adjBonus( game, defender, u );
 		return terBonus*( u.getDefensiveStrength() + adjBonus );
 	}
 	
-	public int modifiedAttack( Position attacker ) {
+	public int modifiedAttack( ExtendedGame game, Position attacker ) {
 		Unit u = game.getUnitAt( attacker );
-		int terBonus = terrainBonus( attacker );
-		int adjBonus = adjBonus( attacker, u );
+		int terBonus = terrainBonus( game, attacker );
+		int adjBonus = adjBonus( game, attacker, u );
 		return terBonus*( u.getAttackingStrength() + adjBonus );
 	}
 	
-	private int adjBonus( Position p, Unit u) {
+	private int adjBonus( ExtendedGame game, Position p, Unit u) {
 		List<Position> adjPositions = game.getPositions( p, 1 );
 		int bonus = 0;
 		for ( Position pos : adjPositions) {
@@ -51,7 +48,7 @@ public class EpsilonAttack implements AttackStrategy {
 		return bonus;
 	}
 	
-	private int terrainBonus( Position p ) {
+	private int terrainBonus( ExtendedGame game, Position p ) {
 		int bonus = 1; // default value
 		Tile t = game.getTileAt(p);
 		String terrainType = t.getTypeString();

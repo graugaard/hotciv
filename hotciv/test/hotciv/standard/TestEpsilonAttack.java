@@ -34,9 +34,9 @@ public class TestEpsilonAttack {
 	@Before
 	public void setUp() {
 		wg = new StringWorldGeneration( t1, c1, u1);
-		ExtendedGame g = new GameImpl( new AlphaFactory(), wg );
+		g = new GameImpl( new AlphaFactory(), wg );
 		fixedDie = new FixedDie( 1, 1 );
-		ea = new EpsilonAttack( g, fixedDie );
+		ea = new EpsilonAttack( fixedDie );
 	}
 	
 	@Test
@@ -62,17 +62,17 @@ public class TestEpsilonAttack {
 		Position p1 = new Position( 0, 2 );
 		assertEquals( "Red legion at (0,2) should have modified " +
 				"attack strength 7 (4 + 3 bonus)",
-				7, ea.modifiedAttack( p1 ));
+				7, ea.modifiedAttack( g, p1 ));
 		
 		Position p2 = new Position( 1, 1 );
 		assertEquals( "Blue archer at (1,1) should have modifed " +
 				"attack strength 6 (2 + 4 bonus)",
-				6, ea.modifiedAttack( p2 ) );
+				6, ea.modifiedAttack( g, p2 ) );
 		
 		Position p3 = new Position( 1,2 );
 		assertEquals( "Red settler at (1,2) should have modified " +
 				"attackStrength 4 (0 + 4 bonus)",
-				4, ea.modifiedAttack( p3 ));
+				4, ea.modifiedAttack( g, p3 ));
 	}
 	
 	@Test
@@ -81,17 +81,17 @@ public class TestEpsilonAttack {
 		Position p1 = new Position( 0, 2 );
 		assertEquals( "Red legion at (0,2) should have modified " +
 				"defence strength 5 (2 + 3 bonus)",
-				5, ea.modifiedDefence( p1 ));
+				5, ea.modifiedDefence( g, p1 ));
 		
 		Position p2 = new Position( 1, 1 );
 		assertEquals( "Blue archer at (1,1) should have modifed " +
 				"defence strength 7 (3 + 4 bonus)", 
-				7, ea.modifiedDefence( p2 ) );
+				7, ea.modifiedDefence( g, p2 ) );
 		
 		Position p3 = new Position( 1,2 );
 		assertEquals( "Red settler at (1,2) should have modified " +
 				"attackStrength 7 (3 + 4 bonus)",
-				7, ea.modifiedDefence( p3 ));
+				7, ea.modifiedDefence( g, p3 ));
 	}
 
 	@Test
@@ -99,7 +99,7 @@ public class TestEpsilonAttack {
 		
 		wg = new StringWorldGeneration( tiles, cities, units );
 		g = new GameImpl( new AlphaFactory(), wg);
-		ea = new EpsilonAttack(g, fixedDie);
+		ea = new EpsilonAttack( fixedDie);
 		
 		/*
 		 * In the following, we use the formula
@@ -109,27 +109,27 @@ public class TestEpsilonAttack {
 		Position p0 = new Position(0,1);
 		assertEquals( "Unit at (0,1) has atkStr 8 " +
 				"(2 tBonus*(2 atk + 2adjBonus)",
-				8, ea.modifiedAttack( p0 ));
+				8, ea.modifiedAttack( g, p0 ));
 		
 		Position p1 = new Position( 1, 2 );
 		assertEquals( "Unit at (1,2) has atkStr 12",
-				12, ea.modifiedAttack( p1 ));
+				12, ea.modifiedAttack( g, p1 ));
 		
 		Position p2 = new Position(0,3);
 		assertEquals( "Unit at (1,3) has atkStr 4",
-				4, ea.modifiedAttack( p2 ));
+				4, ea.modifiedAttack( g, p2 ));
 		
 		Position p3 = new Position(1,4);
 		assertEquals( "Unit at (1,4) has atkStr 8",
-				8, ea.modifiedAttack( p3 ));
+				8, ea.modifiedAttack( g, p3 ));
 		
 		Position p4 = new Position(0,5);
 		assertEquals( "Unit at (0,5) has atkStr 12",
-				12, ea.modifiedAttack( p4 ));
+				12, ea.modifiedAttack( g, p4 ));
 		
 		Position p5 = new Position(1,6);
 		assertEquals( "Unit at (1,6) has atkStr 4",
-				4, ea.modifiedAttack( p5 ));
+				4, ea.modifiedAttack( g, p5 ));
 
 	}
 	@Test
@@ -137,7 +137,7 @@ public class TestEpsilonAttack {
 		
 		wg = new StringWorldGeneration( tiles, cities, units );
 		g = new GameImpl( new AlphaFactory(), wg);
-		ea = new EpsilonAttack(g, fixedDie);
+		ea = new EpsilonAttack( fixedDie);
 		
 		/*
 		 * In the following, we use the formula
@@ -147,27 +147,27 @@ public class TestEpsilonAttack {
 		
 		Position p0 = new Position(0,1);
 		assertEquals( "Unit at (0,1) has defStr 10",
-				10, ea.modifiedDefence( p0 ));
+				10, ea.modifiedDefence( g, p0 ));
 		
 		Position p1 = new Position( 1, 2 );
 		assertEquals( "Unit at (1,2) has defStr 8",
-				8, ea.modifiedDefence( p1 ));
+				8, ea.modifiedDefence( g, p1 ));
 		
 		Position p2 = new Position(0,3);
 		assertEquals( "Unit at (1,3) has defStr 10",
-				10, ea.modifiedDefence( p2 ));
+				10, ea.modifiedDefence( g, p2 ));
 		
 		Position p3 = new Position(1,4);
 		assertEquals( "Unit at (1,4) has defStr 8",
-				10, ea.modifiedDefence( p3 ));
+				10, ea.modifiedDefence( g, p3 ));
 		
 		Position p4 = new Position(0,5);
 		assertEquals( "Unit at (0,5) has defStr 8",
-				8, ea.modifiedDefence( p4 ));
+				8, ea.modifiedDefence( g, p4 ));
 		
 		Position p5 = new Position(1,6);
 		assertEquals( "Unit at (1,6) has defStr 10",
-				10, ea.modifiedDefence( p5 ));
+				10, ea.modifiedDefence( g, p5 ));
 
 	}
 	
@@ -177,7 +177,7 @@ public class TestEpsilonAttack {
 						"B.BBB..."};
 		wg = new StringWorldGeneration( tiles, c, units );
 		g = new GameImpl( new AlphaFactory(), wg );
-		ea = new EpsilonAttack( g, fixedDie );
+		ea = new EpsilonAttack(  fixedDie );
 		/*
 		 * In the following, we use the formulas
 		 * atkStr = terrainBonus * (unit Attack Strength + adj Bonus)
@@ -186,48 +186,48 @@ public class TestEpsilonAttack {
 		 */
 		Position p0 = new Position( 0, 0 );
 		assertEquals( "Unit at (0,1) has modified atkStr 9",
-				9, ea.modifiedAttack( p0 ));
+				9, ea.modifiedAttack( g, p0 ));
 		assertEquals( "Unit at (0,1) has modified defStr 12 ",
-				12, ea.modifiedDefence( p0 ));
+				12, ea.modifiedDefence( g, p0 ));
 		
 		Position p1 = new Position( 0, 2 );
 		assertEquals( "Unit at (0,2) has modified atkStr 18",
-				18, ea.modifiedAttack( p1 ));
+				18, ea.modifiedAttack( g, p1 ));
 		assertEquals( "Unit at (0,2) has modified defStr 12 ",
-				12, ea.modifiedDefence( p1 ));
+				12, ea.modifiedDefence( g, p1 ));
 		
 		Position p2 = new Position( 1, 3 );
 		assertEquals( "Unit at (1,3) has modified atkStr 6",
-				6, ea.modifiedAttack( p2 ));
+				6, ea.modifiedAttack( g, p2 ));
 		assertEquals( "Unit at (1,3) has modified defStr 15 ",
-				15, ea.modifiedDefence( p2 ));
+				15, ea.modifiedDefence( g, p2 ));
 	}
 	
 	@Test
 	public void ShouldGiveCorrectWinnerWhenRollingDies() {
 		wg = new StringWorldGeneration( tiles, cities, units );
 		g = new GameImpl( new AlphaFactory(), wg );
-		ea = new EpsilonAttack( g, fixedDie );
+		ea = new EpsilonAttack( fixedDie );
 		
 		Position atk0 = new Position( 0, 1 ); // atk is 8
 		Position def0 = new Position( 1, 2 ); // def is 8
 		assertFalse( "attacker lose when def = atk, " +
-				"modified by die roll", ea.attack(atk0, def0));
+				"modified by die roll", ea.attack( g, atk0, def0));
 		
 		Position atk1 = def0; // def is 10
 		Position def1 = atk0; // atk is 12
 		assertTrue( "attacker win when def < atk, " +
-				"modified by die roll", ea.attack(atk1, def1));
+				"modified by die roll", ea.attack( g, atk1, def1));
 		fixedDie.setRoll1( 4 );
 		fixedDie.setRoll2( 3 );
 		// 4*10 > 3*10
 		assertTrue( "attacker win when def < atk, " +
-				"modified by die roll", ea.attack(atk0, def0));
+				"modified by die roll", ea.attack( g, atk0, def0));
 		
 		fixedDie.setRoll1( 3 );
 		fixedDie.setRoll2( 4 );
 		// 4*10 > 3*12
 		assertFalse( "attacker win when def < atk, " +
-				"modified by die roll", ea.attack(atk1, def1));
+				"modified by die roll", ea.attack( g, atk1, def1));
 	}
 }

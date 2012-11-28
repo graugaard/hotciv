@@ -3,8 +3,10 @@ package hotciv.standard;
 import hotciv.common.GameImpl;
 import hotciv.factories.AlphaFactory;
 import hotciv.factories.BetaFactory;
+import hotciv.factories.EpsilonFactory;
 import hotciv.factories.GammaFactory;
 import hotciv.framework.*;
+import hotciv.standard.utilities.StringWorldGeneration;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -61,5 +63,39 @@ public class TestIntegration {
     	City c = g.getCityAt(new Position(8,12));
     	assertNotNull("City is not null", c);
     	assertEquals("City belongs to red", Player.RED, c.getOwner());
+    }
+    
+    @Test
+    public void EpsilonCivIntegration() {
+    	String[] t = { 	".....",
+    					".....",
+    					".....",
+    					"....."};
+    	String[] c = { 	".....",
+    					".B...",
+    					"RRRRR",
+    					"....."};
+    	String[] u = { 	".A...",
+    					"lll..",
+    					"LLLLL",
+    					"s.s.s"};
+    	WorldGeneration wg = new StringWorldGeneration( t, c, u );
+    	GameImpl g = new GameImpl(new EpsilonFactory(), wg);
+    	Position p0 = new Position(0,1);
+    	Position p1 = new Position(1,1);
+    	g.moveUnit(p0, p1);
+    	assertNull(g.getUnitAt(p0));
+    	assertEquals("Blue legion", Player.BLUE, g.getUnitAt(p1).getOwner());
+    	Position r0 = new Position(2, 0);
+    	Position b0 = new Position(3,0);
+    	g.moveUnit(r0, b0);
+    	Position r1 = new Position(2, 2);
+    	Position b1 = new Position(3, 2);
+    	g.moveUnit(r1, b1);
+    	assertNull(g.getWinner());
+    	Position r2 = new Position(2,4);
+    	Position b2 = new Position(3,4);
+    	g.moveUnit(r2, b2);
+    	assertEquals(Player.RED, g.getWinner());
     }
 }

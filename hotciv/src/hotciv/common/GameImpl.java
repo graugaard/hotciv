@@ -87,7 +87,7 @@ public class GameImpl implements ExtendedGame {
 
     
     private boolean attack( Position attacker, Position defender ) {
-        return attackStrategy.attack(attacker, defender);
+        return attackStrategy.attack(this, attacker, defender);
     }
     
     public boolean moveUnit( Position from, Position to ) {

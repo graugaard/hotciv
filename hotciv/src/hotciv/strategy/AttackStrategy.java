@@ -1,5 +1,6 @@
 package hotciv.strategy;
 
+import hotciv.framework.ExtendedGame;
 import hotciv.framework.Position;
 
 
@@ -17,6 +18,6 @@ public interface AttackStrategy {
 	 * @param defender The one who is being attacked
 	 * @return Return true if and only if the attacker wins
 	 */
-	public boolean attack(Position attacker, 
+	public boolean attack(ExtendedGame game, Position attacker, 
 			Position defender);
 }

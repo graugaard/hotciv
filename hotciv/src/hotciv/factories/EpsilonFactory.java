@@ -23,6 +23,7 @@ public class EpsilonFactory implements GameFactory{
     }
 
     public AttackStrategy makeAttackStrategy(){
-        return new AlphaAttack();
+    	RandomDie r = new RandomDie();
+        return new EpsilonAttack( r );
     }
 }
