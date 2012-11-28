@@ -76,9 +76,15 @@ public class GameImpl implements ExtendedGame {
     }
     public Player getPlayerInTurn() { return playerInTurn; }
     public Player getWinner() {
-        return winnerStrategy.getWinner(this);
+        return winnerStrategy.getWinner(this, round);
     }
-    public int getAge() { return age; }
+    public int getAge() {
+        return age;
+    }
+    public int getCurrentRound() {
+        return round;
+    }
+
     
     private boolean attack( Position attacker, Position defender ) {
         return attackStrategy.attack(attacker, defender);
@@ -107,18 +113,25 @@ public class GameImpl implements ExtendedGame {
             		if ( success ) {
             			setUnitAt( to, u ); /*  we allow you to move to victory space */
                         battles.add(new Battle(getUnitAt(from).getOwner(), true, round));
+                        if(getCityAt(to) != null){
+                            addCity(new CityImpl(u.getOwner()), to);
+                        }
             		}
+
                     battles.add(new Battle(getUnitAt(from).getOwner(), false, round));
                     u.setMoveCount(0);
                     /* whether unit wins or not, unit is no longer
                      * where unit started */
             		removeUnitAt( from );
-            		return true;
+                    return true;
             	}
             } else { /* space is free, occupiable and within reach, let us move */
                 u.setMoveCount(0);
                 setUnitAt( to , u );
                 removeUnitAt(from);
+                if(getCityAt(to) != null){
+                    addCity(new CityImpl(u.getOwner()), to);
+                }
                 return true;
             }
         }
@@ -151,7 +164,7 @@ public class GameImpl implements ExtendedGame {
             age = ageStrategy.calculateNextAge(age);
             produce(Player.RED);
             resetMove();
-            round++;
+            round += 1;
             firstRound = false;
         }
     }

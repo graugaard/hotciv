@@ -1,16 +1,29 @@
 package hotciv.strategy;
 
+import hotciv.common.GameImpl;
 import hotciv.framework.*;
+
+import java.util.List;
 
 
 public class BetaWinnerStrategy implements WinnerStrategy{
-    public Player getWinner(Game currentGame){
-        Player p1 = currentGame.getCityAt(new Position(1, 1)).getOwner();
-        Player p2 = currentGame.getCityAt(new Position(4, 1)).getOwner();
-        if (p1 == p2) {
-            return p1;
+
+    public Player getWinner(Game currentGame, int round){
+        Player winner = null;
+        GameImpl g = (GameImpl) currentGame;
+        List<City> cities = g.getCities();
+
+        for ( int i = 0; i < cities.size(); i++){
+            if (cities.get(i) != null) {
+                if (winner == null){
+                    winner = cities.get(i).getOwner();
+                }
+                else if (winner != cities.get(i).getOwner()){
+                    return null;
+                }
+            }
         }
-        else return null;
+        return winner;
     }
 
 }

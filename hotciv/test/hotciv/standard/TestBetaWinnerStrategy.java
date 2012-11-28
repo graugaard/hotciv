@@ -1,10 +1,12 @@
 package hotciv.standard;
 
-import hotciv.common.GameImpl;
+import hotciv.common.*;
 import hotciv.factories.BetaFactory;
 import hotciv.framework.*;
+import hotciv.standard.utilities.TestBetaWorldGeneration;
 import hotciv.strategy.BetaWinnerStrategy;
 import hotciv.strategy.WinnerStrategy;
+
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -20,16 +22,16 @@ public class TestBetaWinnerStrategy {
 
     @Test
     public void shouldNotBeAnyWinnerAtStart(){
-        assertNull("No winner should be found", betaWin.getWinner(g));
+        assertNull("No winner should be found", betaWin.getWinner(g, 1));
     }
     @Test
     public void ShoulBePlayerRedWins() {
-    	g = new TestBetaWinner();
+    	g = new GameImpl(new BetaFactory(), new TestBetaWorldGeneration());
     	assertEquals("Red owns the cities", Player.RED, 
     			g.getCityAt(new Position(1,1)).getOwner());
     	assertEquals("Red owns cities", Player.RED,
     			g.getCityAt(new Position(4,1)).getOwner());
-    	assertEquals("Red Wins", Player.RED, betaWin.getWinner(g));
+    	assertEquals("Red Wins", Player.RED, betaWin.getWinner(g, 1));
     }
 
 

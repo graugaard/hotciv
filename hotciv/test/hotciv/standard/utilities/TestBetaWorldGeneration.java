@@ -1,9 +1,11 @@
-package hotciv.standard;
+package hotciv.standard.utilities;
 
+import hotciv.common.CityImpl;
+import hotciv.common.TileImpl;
 import hotciv.framework.*;
-import hotciv.common.*;
 
-public class TestEpsilonWorldGeneration implements WorldGeneration {
+public class TestBetaWorldGeneration implements WorldGeneration{
+
     @Override
     public int getWorldHeight() {
         return GameConstants.WORLDSIZE;  //To change body of implemented methods use File | Settings | File Templates.
@@ -24,27 +26,19 @@ public class TestEpsilonWorldGeneration implements WorldGeneration {
             }
         }
         return tiles;
-          //To change body of implemented methods use File | Settings | File Templates.
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public City[][] generateCities() {
         City[][] cities = new City[getWorldWidth()][getWorldHeight()];
-        cities[1][4] = new CityImpl(Player.BLUE);
-        cities[6][8] = new CityImpl(Player.RED);
+        cities[1][1] = new CityImpl(Player.RED);
+        cities[4][1] = new CityImpl(Player.RED);
         return cities;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Unit[][] generateUnits() {
-        Unit[][] units = new Unit[getWorldWidth()][getWorldHeight()];
-        units[2][3] = new UnitImpl(GameConstants.ARCHER, Player.RED);
-        units[6][5] = new UnitImpl(GameConstants.ARCHER, Player.RED);
-        units[11][14] = new UnitImpl(GameConstants.ARCHER, Player.RED);
-        units[2][4] = new UnitImpl(GameConstants.ARCHER, Player.BLUE);
-        units[5][5] = new UnitImpl(GameConstants.ARCHER, Player.BLUE);
-        units[12][13] = new UnitImpl(GameConstants.ARCHER, Player.BLUE);
-
-        return units;  //To change body of implemented methods use File | Settings | File Templates.
+        return new Unit[0][];  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
