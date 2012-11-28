@@ -50,6 +50,10 @@ public class TestZetaCiv {
         g.moveUnit(new Position(11,14), new Position(12, 13));
         assertNull("still should not be able to be a winner in round 19", g.getWinner());
         endRound();
+        endRound();
+        endRound();
+        endRound();
+        assertNull("still should not be able to find a winner since no attacks was won after round 20", g.getWinner());
     }
 
     GameImpl ga = new GameImpl(new ZetaFactory(), new TestEpsilonWorldGeneration());
