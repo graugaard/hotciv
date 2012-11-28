@@ -49,4 +49,6 @@ public interface ExtendedGame extends Game {
 	 * @return The list
 	 */
 	public List<City> getCities();
+
+    public int getCurrentRound();
 }
