@@ -6,6 +6,6 @@ import hotciv.framework.Player;
 
 
 public interface WinnerStrategy {
-    public Player getWinner(Game currentGame, int round);
+    public Player getWinner(Game currentGame);
 
 }

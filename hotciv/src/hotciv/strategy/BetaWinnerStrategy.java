@@ -8,17 +8,17 @@ import java.util.List;
 
 public class BetaWinnerStrategy implements WinnerStrategy{
 
-    public Player getWinner(Game currentGame, int round){
+    public Player getWinner(Game currentGame){
         Player winner = null;
         GameImpl g = (GameImpl) currentGame;
         List<City> cities = g.getCities();
 
-        for ( int i = 0; i < cities.size(); i++){
-            if (cities.get(i) != null) {
+        for ( City city: cities){
+            if (city != null) {
                 if (winner == null){
-                    winner = cities.get(i).getOwner();
+                    winner = city.getOwner();
                 }
-                else if (winner != cities.get(i).getOwner()){
+                else if (winner != city.getOwner()){
                     return null;
                 }
             }

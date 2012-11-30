@@ -16,7 +16,7 @@ public class ZetaWinnerStrategy implements WinnerStrategy {
     }
 
     @Override
-    public Player getWinner(Game currentGame, int round) {
+    public Player getWinner(Game currentGame) {
         GameImpl g = (GameImpl) currentGame;
         int currentRound = g.getCurrentRound();
         if (currentRound > 20) {
@@ -26,7 +26,7 @@ public class ZetaWinnerStrategy implements WinnerStrategy {
             currentStrategy = before20RoundsStrategy;
         }
 
-        return currentStrategy.getWinner(currentGame, 20);
+        return currentStrategy.getWinner(currentGame);
 
     }
 

@@ -76,7 +76,7 @@ public class GameImpl implements ExtendedGame {
     }
     public Player getPlayerInTurn() { return playerInTurn; }
     public Player getWinner() {
-        return winnerStrategy.getWinner(this, 0);
+        return winnerStrategy.getWinner(this);
     }
     public int getAge() {
         return age;

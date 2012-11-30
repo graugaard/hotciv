@@ -22,7 +22,7 @@ public class TestBetaWinnerStrategy {
 
     @Test
     public void shouldNotBeAnyWinnerAtStart(){
-        assertNull("No winner should be found", betaWin.getWinner(g, 1));
+        assertNull("No winner should be found", betaWin.getWinner(g));
     }
     @Test
     public void ShoulBePlayerRedWins() {
@@ -31,7 +31,7 @@ public class TestBetaWinnerStrategy {
     			g.getCityAt(new Position(1,1)).getOwner());
     	assertEquals("Red owns cities", Player.RED,
     			g.getCityAt(new Position(4,1)).getOwner());
-    	assertEquals("Red Wins", Player.RED, betaWin.getWinner(g, 1));
+    	assertEquals("Red Wins", Player.RED, betaWin.getWinner(g));
     }
 
 

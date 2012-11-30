@@ -7,15 +7,24 @@ import hotciv.framework.Player;
 import hotciv.framework.Battle;
 
 public class EpsilonWinnerStrategy implements WinnerStrategy {
+    int round = 0;
 
-    public Player getWinner(Game currentGame, int round) {
+    public EpsilonWinnerStrategy(int round){
+        this.round = round;
+    }
+    public EpsilonWinnerStrategy(){
+
+    }
+
+
+    public Player getWinner(Game currentGame) {
         GameImpl g = (GameImpl) currentGame;
-        List<Battle> b = g.getBattleHistory();
+        List<Battle> battles = g.getBattleHistory();
         int redWins = 0;
         int blueWins = 0;
 
-        for ( int i = 0; i < b.size(); i++){
-            Battle battle = b.get(i);
+        for ( Battle battle: battles){
+
             if (battle.round() > round){
                 if (battle.successfull()) {
                     if(battle.getAttacker().equals(Player.RED)) {

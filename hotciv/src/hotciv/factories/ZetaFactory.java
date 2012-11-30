@@ -12,7 +12,7 @@ public class ZetaFactory implements GameFactory {
 
     @Override
     public WinnerStrategy makeWinnerStrategy() {
-        return new ZetaWinnerStrategy(new BetaWinnerStrategy(), new EpsilonWinnerStrategy());  //To change body of implemented methods use File | Settings | File Templates.
+        return new ZetaWinnerStrategy(new BetaWinnerStrategy(), new EpsilonWinnerStrategy(20));  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
