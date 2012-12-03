@@ -25,4 +25,9 @@ public class AlphaFactory implements GameFactory {
 	public PopulationStrategy makePopulationStrategy() {
 		return new AlphaPopulationStrategy();
 	}
+
+	@Override
+	public ProductionStrategy makeProduction() {
+		return new AlphaProduction();
+	}
 }

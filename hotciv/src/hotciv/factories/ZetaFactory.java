@@ -29,5 +29,8 @@ public class ZetaFactory implements GameFactory {
 	public PopulationStrategy makePopulationStrategy() {
 		return new AlphaPopulationStrategy();
 	}
-    
+	
+	public ProductionStrategy makeProduction() {
+		return new AlphaProduction();
+	}
 }

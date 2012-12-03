@@ -52,4 +52,38 @@ public class TestEtaCiv {
 		g.endOfTurn();
 		assertEquals("9 people in city", 9, city.getSize());
 	}
+	
+	@Test
+	public void ShouldGiveCorrectCityProduction() {
+		CityImpl city = (CityImpl) g.getCityAt(new Position(0,1));
+		assertEquals("No food", 0, city.getFoodAmount());
+		assertEquals("No production", 0, city.getProductionValue());
+		g.endOfTurn();
+		g.endOfTurn();
+		assertEquals("1 food", 1, city.getFoodAmount());
+		assertEquals("1 production", 1, city.getProductionValue());
+	}
+	
+	@Test
+	public void ShouldHandleFoodFocusCorrect() {
+		String[] tiles = { 	".h.OO",
+							".MffO",
+							"....." };
+		String[] cities = {	".....",
+							"..R..",
+							"....."};
+		String[] units = { 	".....",
+							".....",
+							"....." };
+		WorldGeneration wg = new StringWorldGeneration(tiles, cities, units);
+		g = new GameImpl(new EtaFactory(), wg);
+		Position p = new Position(1,2);
+		g.changeWorkForceFocusInCityAt(p, GameConstants.foodFocus);
+		CityImpl city = (CityImpl) g.getCityAt(p);
+		city.addPopulation(2);
+		g.endOfTurn();
+		g.endOfTurn();
+		assertEquals("7 food", 7, city.getFoodAmount());
+		assertEquals("1 production", 1, city.getProductionValue());
+	}
 }

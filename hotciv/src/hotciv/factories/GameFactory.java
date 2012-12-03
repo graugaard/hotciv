@@ -38,4 +38,10 @@ public interface GameFactory {
      * @return The population strategy
      */
     public PopulationStrategy makePopulationStrategy();
+
+    /**
+     * How the game handle productions
+     * @return
+     */
+	public ProductionStrategy makeProduction();
 }

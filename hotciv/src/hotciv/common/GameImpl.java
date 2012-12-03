@@ -5,6 +5,7 @@ import java.util.*;
 import hotciv.factories.GameFactory;
 import hotciv.framework.*;
 import hotciv.strategy.*;
+import hotciv.strategy.utilities.ProductionStack;
 
 /** Skeleton implementation of HotCiv.
 
@@ -40,6 +41,7 @@ public class GameImpl implements ExtendedGame {
     private List<Battle> battles;
     private PopulationStrategy populationStrategy;
     private int round;
+    private ProductionStrategy productionStrategy;
     /**
      * Make a new Alphaciv game, fresh to be used
      */
@@ -58,6 +60,7 @@ public class GameImpl implements ExtendedGame {
         this.unitActionStrategy = factory.makeUnitActionStrategy();
         this.attackStrategy = factory.makeAttackStrategy();
         populationStrategy = factory.makePopulationStrategy();
+        productionStrategy = factory.makeProduction();
         battles = new ArrayList<Battle>();
     }
 
@@ -204,17 +207,20 @@ public class GameImpl implements ExtendedGame {
             for(int j = 0; j < width; j++) {
             	Position pos = new Position( i, j);
                 City c =  getCityAt( pos );
+                
                 if ( c != null) {
-	                	
+                	CityImpl ci = (CityImpl) c;
 	                if (c.getOwner() == p) {
-	                    c.addProduction(6);
+	                	ProductionStack s = productionStrategy.produce( this, pos );
+	                    c.addProduction(s.getProduction());
+	                    ci.addFood(s.getFood());
 	                    String prod = c.getProduction();
 	                    if(c.getProductionValue() >= unitCost(prod)){
 	                        spawnUnit(new UnitImpl(prod, p), pos );
 	                        c.addProduction(-unitCost(prod));
 	                    }                
 	                }
-	                CityImpl ci = (CityImpl) c;
+	               
 	                int pop = c.getSize();
 	                int nextPopAtFood = 
 	                		populationStrategy.nextPopulationIncrease(pop);

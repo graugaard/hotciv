@@ -1,10 +1,5 @@
 package hotciv.factories;
 
-import hotciv.strategy.AgeStrategy;
-import hotciv.strategy.AttackStrategy;
-import hotciv.strategy.PopulationStrategy;
-import hotciv.strategy.UnitActionStrategy;
-import hotciv.strategy.WinnerStrategy;
 import hotciv.strategy.*;
 
 public class EtaFactory implements GameFactory {
@@ -36,6 +31,10 @@ public class EtaFactory implements GameFactory {
 	public PopulationStrategy makePopulationStrategy() {
 		// TODO Auto-generated method stub
 		return new EtaPopulationStrategy();
+	}
+	
+	public ProductionStrategy makeProduction() {
+		return new EtaProduction();
 	}
 
 }
