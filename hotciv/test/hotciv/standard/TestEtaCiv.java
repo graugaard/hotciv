@@ -86,4 +86,47 @@ public class TestEtaCiv {
 		assertEquals("7 food", 7, city.getFoodAmount());
 		assertEquals("1 production", 1, city.getProductionValue());
 	}
+	
+	@Test
+	public void ShouldHandleProductionFocusCorrect() {
+		String[] tiles = { 	".h.oo",
+							".Mffo",
+							"....." };
+		String[] cities = {	".....",
+							"..R..",
+							"....."};
+		String[] units = { 	".....",
+							".....",
+							"....." };
+		WorldGeneration wg = new StringWorldGeneration(tiles, cities, units);
+		g = new GameImpl(new EtaFactory(), wg);
+		Position p = new Position(1,2);
+		g.changeWorkForceFocusInCityAt(p, GameConstants.productionFocus);
+		CityImpl city = (CityImpl) g.getCityAt(p);
+		city.addPopulation(2);
+		assertEquals("0 food", 0, city.getFoodAmount());
+		assertEquals("0 production", 0, city.getProductionValue());
+		g.endOfTurn();
+		g.endOfTurn();
+		assertEquals("1 food", 1, city.getFoodAmount());
+		assertEquals("1 + 3 + 2 = 6 production", 6, city.getProductionValue());
+	}
+	
+	@Test
+	public void ShouldWorkTilesClosestFirst() {
+		String[] tiles = {	"OOOOOMfffff" };
+		String[] cities = {	".....B....." };
+		String[] units = {	"..........." };
+		WorldGeneration wg = new StringWorldGeneration( tiles, cities, units );
+		g = new GameImpl(new EtaFactory(), wg );
+		Position p = new Position(0,5);
+		CityImpl city = (CityImpl) g.getCityAt(p);
+		city.addPopulation(5);
+		city.setWorkforceFocus(GameConstants.foodFocus);
+		g.endOfTurn(); // first round ignores blue production
+		g.endOfTurn();
+		g.endOfTurn();
+		assertEquals("4 food", 4, city.getFoodAmount());
+		assertEquals("7 production", 7, city.getProductionValue());
+	}
 }

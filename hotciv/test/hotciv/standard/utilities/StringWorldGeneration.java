@@ -89,7 +89,7 @@ public class StringWorldGeneration implements WorldGeneration {
 				if ( c == '.') {
 					t = new TileImpl(GameConstants.PLAINS);
 				}
-				if ( c == 'O' ) {
+				if ( c == 'O' || c == 'o') {
 					t = new TileImpl(GameConstants.OCEANS);
 				}
 				if ( c == 'M' ) {

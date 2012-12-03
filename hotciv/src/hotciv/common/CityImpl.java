@@ -14,6 +14,7 @@ public class CityImpl implements City {
     private int production;
     private int population;
     private int food;
+    private String workforceFocus;
 
     public CityImpl(Player owner) {
         this.owner = owner;
@@ -21,6 +22,7 @@ public class CityImpl implements City {
         production = 0;
         population = 1;
         food = 0;
+        workforceFocus = GameConstants.productionFocus;
     }
 
     public int getSize() {
@@ -36,7 +38,7 @@ public class CityImpl implements City {
     }
 
     public String getWorkforceFocus() {
-        return null;
+        return workforceFocus;
     }
 
     public void setProduction(String unitType){
@@ -61,5 +63,9 @@ public class CityImpl implements City {
     
     public int getFoodAmount() {
     	return food;
+    }
+    
+    public void setWorkforceFocus(String focus) {
+    	workforceFocus = focus;
     }
 }

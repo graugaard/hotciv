@@ -173,7 +173,13 @@ public class GameImpl implements ExtendedGame {
             firstRound = false;
         }
     }
-    public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
+    public void changeWorkForceFocusInCityAt( Position p, String balance ) {
+    	City c = getCityAt(p);
+    	if ( c != null ) {
+    		CityImpl city = (CityImpl) c;
+    		city.setWorkforceFocus( balance );
+    	}
+    }
     
     public void changeProductionInCityAt( Position p, String unitType ) {
         City c = getCityAt(p);
