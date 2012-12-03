@@ -1,5 +1,6 @@
 package hotciv.strategy;
 
+
 import java.util.Random;
 
 public class RandomDie implements DieRoller {

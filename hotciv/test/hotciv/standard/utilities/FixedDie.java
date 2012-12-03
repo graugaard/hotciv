@@ -1,4 +1,4 @@
-package hotciv.standard;
+package hotciv.standard.utilities;
 
 import hotciv.strategy.DieRoller;
 

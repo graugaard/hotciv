@@ -130,6 +130,7 @@ HotCiv build management.
       <arg value="hotciv.standard.TestEpsilonWinnerStrategy"/>
       <arg value="hotciv.standard.TestEpsilonAttack"/>
       <arg value="hotciv.standard.TestZetaCiv"/>
+    	<arg value="hotciv.standard.TestEtaCiv"/>
       <classpath refid="class-path"/>
     </java>
   </target>

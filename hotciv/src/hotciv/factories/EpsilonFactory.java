@@ -1,7 +1,6 @@
 package hotciv.factories;
 
 import hotciv.strategy.*;
-import hotciv.strategy.EpsilonWinnerStrategy;
 
 
 public class EpsilonFactory implements GameFactory{
@@ -26,4 +25,8 @@ public class EpsilonFactory implements GameFactory{
     	RandomDie r = new RandomDie();
         return new EpsilonAttack( r );
     }
+    
+	public PopulationStrategy makePopulationStrategy() {
+		return new AlphaPopulationStrategy();
+	}
 }

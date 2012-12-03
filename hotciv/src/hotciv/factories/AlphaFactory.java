@@ -21,4 +21,8 @@ public class AlphaFactory implements GameFactory {
 	public AttackStrategy makeAttackStrategy() {
 		return new AlphaAttack();
 	}
+
+	public PopulationStrategy makePopulationStrategy() {
+		return new AlphaPopulationStrategy();
+	}
 }

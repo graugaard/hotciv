@@ -5,6 +5,7 @@ import hotciv.factories.AlphaFactory;
 import hotciv.framework.ExtendedGame;
 import hotciv.framework.Position;
 import hotciv.framework.WorldGeneration;
+import hotciv.standard.utilities.FixedDie;
 import hotciv.standard.utilities.StringWorldGeneration;
 import hotciv.strategy.EpsilonAttack;
 

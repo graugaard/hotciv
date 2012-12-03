@@ -32,4 +32,10 @@ public interface GameFactory {
      * @return The attack strategy
      */
     public AttackStrategy makeAttackStrategy();
+    
+    /**
+     * Return the population strategy
+     * @return The population strategy
+     */
+    public PopulationStrategy makePopulationStrategy();
 }

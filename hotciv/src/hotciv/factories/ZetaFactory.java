@@ -24,4 +24,10 @@ public class ZetaFactory implements GameFactory {
     public AttackStrategy makeAttackStrategy() {
         return new AlphaAttack();  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+	@Override
+	public PopulationStrategy makePopulationStrategy() {
+		return new AlphaPopulationStrategy();
+	}
+    
 }

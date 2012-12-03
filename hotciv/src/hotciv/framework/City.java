@@ -21,33 +21,33 @@ Responsibilities:
    commercial use, see http://www.baerbak.com/
 */
 public interface City {
-  /** return the owner of this city.
-   * @return the player that controls this city.
-   */
-  public Player getOwner();
+	/** return the owner of this city.
+	 * @return the player that controls this city.
+	 */
+	public Player getOwner();
   
-  /** return the size of the population.
-   * @return population size.
-   */
-  public int getSize();
+  	/** return the size of the population.
+   	* @return population size.
+   	*/
+  	public int getSize();
 
-  /** return the type of unit this city is currently producing.
-   * @return a string type defining the unit under production,
-   * see GameConstants for valid values.
-   */
-  public String getProduction();
+  	/** return the type of unit this city is currently producing.
+   	* @return a string type defining the unit under production,
+   	* see GameConstants for valid values.
+   	*/
+  	public String getProduction();
 
-  /** return the work force's focus in this city.
-   * @return a string type defining the focus, see GameConstants
-   * for valid return values.
-   */
-  public String getWorkforceFocus();
+  	/** return the work force's focus in this city.
+  	* @return a string type defining the focus, see GameConstants
+   	* for valid return values.
+   	*/
+  	public String getWorkforceFocus();
 
     /** change which unit is being produced in the city.
      *  @param unitType a string depicting the type of unit to
      *  produce, can only be chosen from GameConstants.
      */
-  public void setProduction(String unitType);
+  	public void setProduction(String unitType);
 
     public void addProduction(int amount);
     public int getProductionValue();

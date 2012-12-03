@@ -38,6 +38,7 @@ public class GameImpl implements ExtendedGame {
     private int width;
     private AttackStrategy attackStrategy;
     private List<Battle> battles;
+    private PopulationStrategy populationStrategy;
     private int round;
     /**
      * Make a new Alphaciv game, fresh to be used
@@ -56,6 +57,7 @@ public class GameImpl implements ExtendedGame {
         this.winnerStrategy = factory.makeWinnerStrategy();
         this.unitActionStrategy = factory.makeUnitActionStrategy();
         this.attackStrategy = factory.makeAttackStrategy();
+        populationStrategy = factory.makePopulationStrategy();
         battles = new ArrayList<Battle>();
     }
 
@@ -202,13 +204,26 @@ public class GameImpl implements ExtendedGame {
             for(int j = 0; j < width; j++) {
             	Position pos = new Position( i, j);
                 City c =  getCityAt( pos );
-                if (c != null && c.getOwner() == p) {
-                    c.addProduction(6);
-                    String prod = c.getProduction();
-                    if(c.getProductionValue() >= unitCost(prod)){
-                        spawnUnit(new UnitImpl(prod, p), pos );
-                        c.addProduction(-unitCost(prod));
-                    }
+                if ( c != null) {
+	                	
+	                if (c.getOwner() == p) {
+	                    c.addProduction(6);
+	                    String prod = c.getProduction();
+	                    if(c.getProductionValue() >= unitCost(prod)){
+	                        spawnUnit(new UnitImpl(prod, p), pos );
+	                        c.addProduction(-unitCost(prod));
+	                    }                
+	                }
+	                CityImpl ci = (CityImpl) c;
+	                int pop = c.getSize();
+	                int nextPopAtFood = 
+	                		populationStrategy.nextPopulationIncrease(pop);
+	                int limit = populationStrategy.populationLimit();
+	                if ( ci.getFoodAmount() >= nextPopAtFood && 
+	                		limit > pop) {
+	                	ci.addPopulation(1);
+	                	ci.addFood(-ci.getFoodAmount());
+	                }
                 }
             }
         }

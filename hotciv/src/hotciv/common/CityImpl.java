@@ -12,15 +12,19 @@ public class CityImpl implements City {
     private Player owner;
     private String producing;
     private int production;
+    private int population;
+    private int food;
 
     public CityImpl(Player owner) {
         this.owner = owner;
         producing = GameConstants.SETTLER;
         production = 0;
+        population = 1;
+        food = 0;
     }
 
     public int getSize() {
-        return 1;
+        return population;
     }
 
     public String getProduction() {
@@ -42,8 +46,20 @@ public class CityImpl implements City {
     public void addProduction(int amount) {
         production += amount;
     }
+    
     public int getProductionValue() {
         return production;
     }
+    
+    public void addPopulation(int amount) {
+    	population += amount;
+    }
 
+    public void addFood( int amount ) {
+    	food += amount;
+    }
+    
+    public int getFoodAmount() {
+    	return food;
+    }
 }
