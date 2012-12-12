@@ -134,6 +134,7 @@ HotCiv build management.
       <arg value="hotciv.standard.TestZetaCiv"/>
     	<arg value="hotciv.standard.TestEtaCiv"/>
     	<arg value="hotciv.standard.TestFractalAdapter"/>
+    	<arg value="hotciv.standard.TestLogDecorator"/>
       <classpath refid="class-path"/>
     </java>
   </target>
