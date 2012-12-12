@@ -1,5 +1,6 @@
 package hotciv.standard;
 
+import thirdparty.ThirdPartyFractalGenerator;
 import hotciv.common.TileImpl;
 import hotciv.framework.City;
 import hotciv.framework.GameConstants;
@@ -13,32 +14,42 @@ import hotciv.framework.WorldGeneration;
  *
  */
 public class FractalAdapter implements WorldGeneration {
+	int ws = GameConstants.WORLDSIZE;
+	ThirdPartyFractalGenerator generator;
 
-	@Override
+	public FractalAdapter() {
+		generator = new ThirdPartyFractalGenerator();
+	}
 	public int getWorldHeight() {
-		return 16;
+		return ws;
 	}
 
 	@Override
 	public int getWorldWidth() {
-		return 16;
+		return ws;
 	}
 
 	@Override
 	public Tile[][] generateTiles() {
-		// TODO Auto-generated method stub
+		Tile[][] tiles = new Tile[ws][ws];
+		for (int i = 0; i < ws; i++) {
+			for (int j = 0; j < ws; j++) {
+				char c = generator.getLandscapeAt(i, j);
+				tiles[i][j] = charToTile(c);
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public City[][] generateCities() {
-		City[][] cities = new City[16][16];
+		City[][] cities = new City[ws][ws];
 		return cities;
 	}
 
 	@Override
 	public Unit[][] generateUnits() {
-		Unit[][] units = new Unit[16][16];
+		Unit[][] units = new Unit[ws][ws];
 		return units;
 	}
 	
