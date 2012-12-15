@@ -359,4 +359,16 @@ public class GameImpl implements ExtendedGame {
 		}
 		return cities;
 	}
+
+	@Override
+	public void addObserver(GameObserver observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setTileFocus(Position postion) {
+		// TODO Auto-generated method stub
+		
+	}
 }

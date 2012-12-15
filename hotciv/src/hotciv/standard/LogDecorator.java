@@ -3,6 +3,7 @@ package hotciv.standard;
 import hotciv.common.GameImpl;
 import hotciv.framework.City;
 import hotciv.framework.Game;
+import hotciv.framework.GameObserver;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
@@ -106,6 +107,20 @@ public class LogDecorator implements Game{
 	}
 	public String getLog(){
 		return log;
+	}
+
+
+	@Override
+	public void addObserver(GameObserver observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setTileFocus(Position postion) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

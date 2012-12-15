@@ -135,4 +135,21 @@ public interface Game {
     public int dist(Position p1, Position p2);
 
     public void setAgeStrategy(AgeStrategy useThisStrategy);
+    
+    /**
+     * Add an observer to the game interface. The game instance
+     * acts as subject in the 'Observer' pattern.
+     * @param observer the observer to notify in case
+     * of state change.
+     */
+    public void addObserver( GameObserver observer );
+    
+    /**
+     * Set focus on a specific tile. This will result in an
+     * event being broadcast to all observers that focus has 
+     * been changed to this tile
+     * @param postion the position where focus has been changed
+     * to
+     */
+    public void setTileFocus( Position postion );
 }
