@@ -10,17 +10,21 @@ import hotciv.framework.Position;
  *
  */
 public class ObserverSpy implements GameObserver {
-	private boolean worldChangedAtInvoked;
+	private boolean worldChangedAtPosInvoked;
+	private boolean tileFocusHasChanged;
+	
 	private Position positionObserved;
+	
 	public ObserverSpy( Position p ) {
-		worldChangedAtInvoked = false;
+		worldChangedAtPosInvoked = false;
+		tileFocusHasChanged = false;
 		positionObserved = p;
 	}
 	@Override
 	public void worldChangedAt(Position pos) {
 		
 		if (pos.equals(positionObserved)) {
-			worldChangedAtInvoked = true;
+			worldChangedAtPosInvoked = true;
 		}
 	}
 
@@ -32,11 +36,17 @@ public class ObserverSpy implements GameObserver {
 
 	@Override
 	public void tileFocusChangedAt(Position position) {
-		// TODO Auto-generated method stub
+		if ( position.equals( positionObserved )) {
+			tileFocusHasChanged = true;
+		}
 
 	}
 	
 	public boolean worldChangeInvoked() {
-		return worldChangedAtInvoked;
+		return worldChangedAtPosInvoked;
+	}
+	
+	public boolean tileFocusHasChanged() {
+		return tileFocusHasChanged;
 	}
 }

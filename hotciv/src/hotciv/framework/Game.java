@@ -148,8 +148,8 @@ public interface Game {
      * Set focus on a specific tile. This will result in an
      * event being broadcast to all observers that focus has 
      * been changed to this tile
-     * @param postion the position where focus has been changed
+     * @param position the position where focus has been changed
      * to
      */
-    public void setTileFocus( Position postion );
+    public void setTileFocus( Position position );
 }

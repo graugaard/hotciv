@@ -42,6 +42,8 @@ public class GameImpl implements ExtendedGame {
     private PopulationStrategy populationStrategy;
     private int round;
     private ProductionStrategy productionStrategy;
+    
+    private List<GameObserver> observers;
     /**
      * Make a new Alphaciv game, fresh to be used
      */
@@ -62,6 +64,7 @@ public class GameImpl implements ExtendedGame {
         populationStrategy = factory.makePopulationStrategy();
         productionStrategy = factory.makeProduction();
         battles = new ArrayList<Battle>();
+        observers = new ArrayList<GameObserver>();
     }
 
     public void setAgeStrategy(AgeStrategy useThisStrategy){
@@ -126,8 +129,11 @@ public class GameImpl implements ExtendedGame {
                     battles.add(new Battle(getUnitAt(from).getOwner(), false, round));
                     u.setMoveCount(0);
                     /* whether unit wins or not, unit is no longer
-                     * where unit started */
+                     * where unit started. Also, inform that world has changed
+                     */
             		removeUnitAt( from );
+            		notifyWorldChangeAt( from );
+            		notifyWorldChangeAt( to );
                     return true;
             	}
             } else { /* space is free, occupiable and within reach, let us move */
@@ -137,6 +143,10 @@ public class GameImpl implements ExtendedGame {
                 if(getCityAt(to) != null){
                     addCity(new CityImpl(u.getOwner()), to);
                 }
+                
+                /* inform that world has changed before stopping */
+                notifyWorldChangeAt( from );
+                notifyWorldChangeAt( to );
                 return true;
             }
         }
@@ -145,6 +155,8 @@ public class GameImpl implements ExtendedGame {
         	return false;
         }
     }
+    
+    
     
     private boolean occupiableTerrain( Position p ) {
     	Tile t = getTileAt( p );
@@ -188,7 +200,7 @@ public class GameImpl implements ExtendedGame {
     
     public void performUnitActionAt( Position p ) {
         unitActionStrategy.returnAction(p, this);
-
+        notifyWorldChangeAt( p );
     }
 
     public int dist(Position p1, Position p2) {
@@ -362,13 +374,20 @@ public class GameImpl implements ExtendedGame {
 
 	@Override
 	public void addObserver(GameObserver observer) {
-		// TODO Auto-generated method stub
-		
+		observers.add(observer);
 	}
+	
+	/* allows to notify all observers of change at position pos */
+    private void notifyWorldChangeAt( Position pos ) {
+    	for (GameObserver o: observers) {
+    		o.worldChangedAt(pos);
+    	}
+    }
 
 	@Override
-	public void setTileFocus(Position postion) {
-		// TODO Auto-generated method stub
-		
+	public void setTileFocus(Position position) {
+		for (GameObserver o: observers) {
+			o.tileFocusChangedAt(position);
+		}
 	}
 }
