@@ -132,9 +132,7 @@ public class GameImpl implements ExtendedGame {
                      * where unit started. Also, inform that world has changed
                      */
             		removeUnitAt( from );
-            		notifyWorldChangeAt( from );
-            		notifyWorldChangeAt( to );
-                    return true;
+            		
             	}
             } else { /* space is free, occupiable and within reach, let us move */
                 u.setMoveCount(0);
@@ -145,10 +143,11 @@ public class GameImpl implements ExtendedGame {
                 }
                 
                 /* inform that world has changed before stopping */
-                notifyWorldChangeAt( from );
-                notifyWorldChangeAt( to );
-                return true;
+
             }
+        	notifyWorldChangeAt( from );
+    		notifyWorldChangeAt( to );
+            return true;
         }
         else {
         	/* we don't move empty space */
@@ -172,9 +171,11 @@ public class GameImpl implements ExtendedGame {
     
     public void endOfTurn() {
         if (playerInTurn == Player.RED) {
-            playerInTurn = Player.BLUE;
-            if(!firstRound)
+        	playerInTurn = Player.BLUE;
+            turnEnds( playerInTurn, age );
+            if(!firstRound) {
                 produce(Player.BLUE);
+            }
         }
         else {
             playerInTurn = Player.RED;
@@ -184,7 +185,15 @@ public class GameImpl implements ExtendedGame {
             round += 1;
             firstRound = false;
         }
+        turnEnds( playerInTurn, age );
     }
+    
+    private void turnEnds( Player nextPlayer, int age ) {
+    	for( GameObserver o: observers ) {
+    		o.turnEnds(nextPlayer, age);
+    	}
+    }
+    
     public void changeWorkForceFocusInCityAt( Position p, String balance ) {
     	City c = getCityAt(p);
     	if ( c != null ) {
@@ -375,6 +384,10 @@ public class GameImpl implements ExtendedGame {
 	@Override
 	public void addObserver(GameObserver observer) {
 		observers.add(observer);
+		/* give observer knowledge about who is
+		 * currently in turn and what age we have
+		 */
+		observer.turnEnds( playerInTurn, age );
 	}
 	
 	/* allows to notify all observers of change at position pos */

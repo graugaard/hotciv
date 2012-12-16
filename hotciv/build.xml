@@ -61,6 +61,7 @@ HotCiv build management.
     emmatest:  Run same JUnit tests as above and in addition
                generate Emma code coverage report in
                coverage/index.html.
+    copyResource:	Places *.gif files in proper folder.
     </echo>
   </target>
   
@@ -73,6 +74,7 @@ HotCiv build management.
   <target name="prepare">
     <mkdir dir="${build-directory}"/>
     <mkdir dir="${docDirectory}"/>
+  	<mkdir dir="${resourceDirectory}"/>
   </target>
   
   <target name="build-src" depends="prepare">
@@ -147,6 +149,7 @@ HotCiv build management.
     	<arg value="hotciv.standard.TestEtaCiv"/>
     	<arg value="hotciv.standard.TestFractalAdapter"/>
     	<arg value="hotciv.standard.TestLogDecorator"/>
+    	<arg value="hotciv.standard.TestGameImplNotifying"/>
       <classpath refid="class-path"/>
     </java>
   </target>

@@ -12,7 +12,8 @@ import hotciv.framework.Position;
 public class ObserverSpy implements GameObserver {
 	private boolean worldChangedAtPosInvoked;
 	private boolean tileFocusHasChanged;
-	
+	private Player nextPlayer;
+	private int age;
 	private Position positionObserved;
 	
 	public ObserverSpy( Position p ) {
@@ -20,7 +21,7 @@ public class ObserverSpy implements GameObserver {
 		tileFocusHasChanged = false;
 		positionObserved = p;
 	}
-	@Override
+
 	public void worldChangedAt(Position pos) {
 		
 		if (pos.equals(positionObserved)) {
@@ -28,18 +29,16 @@ public class ObserverSpy implements GameObserver {
 		}
 	}
 
-	@Override
 	public void turnEnds(Player nextPlayer, int age) {
-		// TODO Auto-generated method stub
-
+		this.nextPlayer = nextPlayer;
+		this.age = age;
 	}
 
-	@Override
 	public void tileFocusChangedAt(Position position) {
+		
 		if ( position.equals( positionObserved )) {
 			tileFocusHasChanged = true;
 		}
-
 	}
 	
 	public boolean worldChangeInvoked() {
@@ -48,5 +47,13 @@ public class ObserverSpy implements GameObserver {
 	
 	public boolean tileFocusHasChanged() {
 		return tileFocusHasChanged;
+	}
+	
+	public Player getNextPlayer() {
+		return nextPlayer;
+	}
+	
+	public int getAge() {
+		return age;
 	}
 }

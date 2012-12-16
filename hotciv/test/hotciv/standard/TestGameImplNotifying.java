@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import hotciv.common.*;
 import hotciv.factories.*;
+import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.standard.utilities.ObserverSpy;
 
@@ -40,7 +41,8 @@ public class TestGameImplNotifying {
 		
 		Position blueLegion = new Position(3,2);
 		Position redSettler = new Position(4,3);
-		
+		assertNotNull( game.getUnitAt( blueLegion ) );
+		assertEquals(Player.BLUE, game.getPlayerInTurn());
 		ObserverSpy spy1 = new ObserverSpy( blueLegion );
 		ObserverSpy spy2 = new ObserverSpy( redSettler );
 		game.addObserver(spy1);
@@ -74,5 +76,22 @@ public class TestGameImplNotifying {
 		assertFalse( spy1.tileFocusHasChanged() );
 		game.setTileFocus( new Position(0,0) );
 		assertTrue( spy1.tileFocusHasChanged() );
+	}
+	
+	@Test
+	public void ObserversShouldBeNotifiedOfEndOfTurn() {
+		ObserverSpy spy1 = new ObserverSpy( new Position (0,0) );
+		game.addObserver(spy1);
+
+		assertEquals("Age is -4000", -4000, spy1.getAge());
+		assertEquals("Red is player", Player.RED, spy1.getNextPlayer());
+		
+		game.endOfTurn();
+		assertEquals("Age is -4000", -4000, spy1.getAge());
+		assertEquals("Blue is player", Player.BLUE, spy1.getNextPlayer());
+		
+		game.endOfTurn();
+		assertEquals("Age is -3900", -3900, spy1.getAge());
+		assertEquals("Red is player", Player.RED, spy1.getNextPlayer());
 	}
 }
