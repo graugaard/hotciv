@@ -62,6 +62,7 @@ HotCiv build management.
                generate Emma code coverage report in
                coverage/index.html.
     copyResource:	Places *.gif files in proper folder.
+    play:		PLay the game.
     </echo>
   </target>
   
@@ -98,7 +99,7 @@ HotCiv build management.
   </target>
 	
 	<target name="copyResource" depends="prepare">
-		<copy todir="${buildDirectory}\${resource}" >
+		<copy todir="${build-directory}\${resource}" >
 			<fileset dir="${resource}">
 				<include name="*.gif"/>
 			</fileset>
@@ -196,8 +197,17 @@ HotCiv build management.
 	  <target name="update" depends="build-all">
 	    <java fork="yes" classname="hotciv.visual.TestPartialDrawing">
 	      <classpath>
-		<path refid="classPath"/>
+			<path refid="class-path"/>
 	      </classpath>
 	    </java>
 	  </target>
+	
+	<!-- Play the game -->
+	<target name="play" depends="build-all">
+		<java fork="yes" classname="hotciv.standard.HotcivMain">
+			<classpath>
+				<path refid="class-path"/>
+			</classpath>
+		</java>
+	</target>
 </project>
