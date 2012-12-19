@@ -384,10 +384,6 @@ public class GameImpl implements ExtendedGame {
 	@Override
 	public void addObserver(GameObserver observer) {
 		observers.add(observer);
-		/* give observer knowledge about who is
-		 * currently in turn and what age we have
-		 */
-		//observer.turnEnds( playerInTurn, age );
 	}
 	
 	/* allows to notify all observers of change at position pos */
