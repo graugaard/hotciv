@@ -172,7 +172,7 @@ HotCiv build management.
 	  <target name="show" depends="build-all">
 	    <java fork="yes" classname="hotciv.visual.ShowWorld">
 	      <classpath>
-		<path refid="classPath"/>
+		<path refid="class-path"/>
 	      </classpath>
 	    </java>
 	  </target>
@@ -180,7 +180,7 @@ HotCiv build management.
 	  <target name="text" depends="build-all">
 	    <java fork="yes" classname="hotciv.visual.ShowText">
 	      <classpath>
-		<path refid="classPath"/>
+		<path refid="class-path"/>
 	      </classpath>
 	    </java>
 	  </target>
@@ -188,7 +188,7 @@ HotCiv build management.
 	  <target name="city" depends="build-all">
 	    <java fork="yes" classname="hotciv.visual.ShowCity">
 	      <classpath>
-		<path refid="classPath"/>
+		<path refid="class-path"/>
 	      </classpath>
 	    </java>
 	  </target>
