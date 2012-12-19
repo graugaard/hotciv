@@ -219,4 +219,13 @@ HotCiv build management.
 			</classpath>
 		</java>
 	</target>
+
+	<!-- Test inspecting unit and city tool -->
+	<target name="inspect" depends="build-all">
+	    <java fork="yes" classname="hotciv.visual.TestFocusOnTileTool">
+	        <classpath>
+	            <path refid="class-path"/>
+	        </classpath>
+	    </java>
+	</target>
 </project>
