@@ -389,7 +389,7 @@ public class GameImpl implements ExtendedGame {
 	}
 	
 	/* allows to notify all observers of change at position pos */
-    private void notifyWorldChangeAt( Position pos ) {
+    public void notifyWorldChangeAt( Position pos ) {
     	for (GameObserver o: observers) {
     		o.worldChangedAt(pos);
     	}

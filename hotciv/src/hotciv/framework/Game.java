@@ -143,7 +143,8 @@ public interface Game {
      * of state change.
      */
     public void addObserver( GameObserver observer );
-    
+
+    public void notifyWorldChangeAt(Position p);
     /**
      * Set focus on a specific tile. This will result in an
      * event being broadcast to all observers that focus has 

@@ -7,7 +7,6 @@ import java.util.*;
 
 import minidraw.framework.*;
 import minidraw.standard.*;
-import minidraw.standard.handlers.*;
 
 /** CivDrawing is a specialized Drawing (model component) from
  * MiniDraw that dynamically builds the list of Figures for MiniDraw
@@ -175,7 +174,10 @@ public class CivDrawing extends StandardDrawing
         for ( Figure f : figureMap.values() ) {
             super.remove(f);
         }
+        workForceFocus.changed();
+
         defineUnitMap();
+
     }
 
     public void turnEnds(Player nextPlayer, int age) {
@@ -237,6 +239,7 @@ public class CivDrawing extends StandardDrawing
                     new Point(GfxConstants.UNIT_SHIELD_X, GfxConstants.UNIT_SHIELD_Y));
 
         }
+
 
         System.out.println( "Fake it: tileFocusChangedAt "+position );
     }

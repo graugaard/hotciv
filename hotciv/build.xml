@@ -240,7 +240,7 @@ HotCiv build management.
 
 	<!-- Test ChangeTool -->
     	<target name="change" depends="build-all">
-    		<java fork="yes" classname="hotciv.visual.TestChangeTool">
+    		<java fork="yes" classname="hotciv.visual.TestMulti">
     			<classpath>
     				<path refid="class-path"/>
     			</classpath>
