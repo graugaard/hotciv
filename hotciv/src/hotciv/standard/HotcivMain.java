@@ -56,8 +56,10 @@ class UpdateTool extends NullTool {
 	    case 3: {
 	    	editor.showStatus( "State change: Turn ends (over to red)" );
 	    	game.endOfTurn();
+	    	break;
 	    }
 	    default: {
+	    	game.endOfTurn();
 	      editor.showStatus("No more changes in my list...");
 	    }
 	    }

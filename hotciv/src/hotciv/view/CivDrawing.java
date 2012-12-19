@@ -76,9 +76,28 @@ public class CivDrawing extends StandardDrawing
     // ensure no units of the old list are accidental in
     // the selection!
     clearSelection();
-
-    figureMap = new HashMap<Unit,UnitFigure>();
     Position p;
+    
+    cityMap = new HashMap<City,CityFigure>();
+    for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+		for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+			p = new Position( r, c );
+			int x = GfxConstants.getXFromColumn(c);
+			int y = GfxConstants.getYFromRow(r);
+			Point point = new Point(x,y);
+			City city = game.getCityAt(p);
+			if ( city != null ) {
+				CityFigure cf = new CityFigure(city, point);
+				cf.addFigureChangeListener(this);
+				cityMap.put(city,cf);
+				
+				super.add(cf);
+			}
+		}
+    }
+    
+    figureMap = new HashMap<Unit,UnitFigure>();
+    
     for ( int r = 0; r < GameConstants.WORLDSIZE; r++ ) {
       for ( int c = 0; c < GameConstants.WORLDSIZE; c++ ) {
         p = new Position(r,c);
@@ -97,10 +116,31 @@ public class CivDrawing extends StandardDrawing
           // this list that is iterated by the
           // graphics rendering algorithms
           super.add(unitFigure);
+          
         }
       }
     }
+    
   }
+  protected HashMap<City,CityFigure> cityMap;
+	public void defineCityMap() {
+		for (int r = 0; r < GameConstants.WORLDSIZE; r++) {
+			for (int c = 0; c < GameConstants.WORLDSIZE; c++) {
+				Position p = new Position( r, c );
+				int x = GfxConstants.getXFromColumn(c);
+				int y = GfxConstants.getYFromRow(r);
+				Point point = new Point(x,y);
+				City city = game.getCityAt(p);
+				if ( city != null ) {
+					CityFigure cf = new CityFigure(city, point);
+					cf.addFigureChangeListener(this);
+					cityMap.put(city,cf);
+					
+					super.add(cf);
+				}
+			}
+		}
+	}
 
   private ImageFigure turnShieldIcon;
   private void defineIcons() {

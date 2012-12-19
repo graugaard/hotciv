@@ -172,7 +172,6 @@ public class GameImpl implements ExtendedGame {
     public void endOfTurn() {
         if (playerInTurn == Player.RED) {
         	playerInTurn = Player.BLUE;
-            turnEnds( playerInTurn, age );
             if(!firstRound) {
                 produce(Player.BLUE);
             }
@@ -245,6 +244,7 @@ public class GameImpl implements ExtendedGame {
 	                    if(c.getProductionValue() >= unitCost(prod)){
 	                        spawnUnit(new UnitImpl(prod, p), pos );
 	                        c.addProduction(-unitCost(prod));
+	                        notifyWorldChangeAt(pos);
 	                    }                
 	                }
 	               
