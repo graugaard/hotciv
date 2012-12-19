@@ -51,4 +51,5 @@ public interface City {
 
     public void addProduction(int amount);
     public int getProductionValue();
+
 }

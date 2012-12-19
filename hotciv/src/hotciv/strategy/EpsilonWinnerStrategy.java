@@ -7,13 +7,13 @@ import hotciv.framework.Player;
 import hotciv.framework.Battle;
 
 public class EpsilonWinnerStrategy implements WinnerStrategy {
-    int round = 0;
+    int round;
 
     public EpsilonWinnerStrategy(int round){
         this.round = round;
     }
     public EpsilonWinnerStrategy(){
-
+        round = 0;
     }
 
 

@@ -13,6 +13,8 @@ import hotciv.framework.WorldGeneration;
  * @author Jakob
  *
  */
+
+
 public class FractalAdapter implements WorldGeneration {
 	int ws = GameConstants.WORLDSIZE;
 	ThirdPartyFractalGenerator generator;
