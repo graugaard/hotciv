@@ -228,4 +228,13 @@ HotCiv build management.
 	        </classpath>
 	    </java>
 	</target>
+	
+	<!-- Test endOfTurnTool -->
+	<target name="endOfTurn" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.TestEndOfTurnTool">
+			<classpath>
+				<path refid="class-path"/>
+			</classpath>
+		</java>
+	</target>
 </project>
