@@ -107,7 +107,11 @@ public class StubGame2 implements Game {
   public int getAge() { return 0; }  
   public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
   public void changeProductionInCityAt( Position p, String unitType ) {}
-  public void performUnitActionAt( Position p ) {}  
+  public void performUnitActionAt( Position p ) {
+	  if (p.equals(pos_archer_red) || p.equals(pos_legion_blue)) {
+		  System.out.println("Unit action performed");
+	  }
+  }  
   public void setTileFocus(Position position) {}
 @Override
 public int dist(Position p1, Position p2) {
