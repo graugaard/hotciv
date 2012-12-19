@@ -123,4 +123,11 @@ public class LogDecorator implements Game{
 		
 	}
 
+
+	@Override
+	public void notifyWorldChangeAt(Position p) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

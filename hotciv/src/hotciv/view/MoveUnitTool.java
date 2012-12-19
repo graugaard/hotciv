@@ -28,43 +28,46 @@ public class MoveUnitTool extends NullTool {
 	public void mouseDown(java.awt.event.MouseEvent e, 
 			int x, int y) {
 		Position p = GfxConstants.getPositionFromXY(x, y);
-		if (!inWorld(p)) {
-			return;
-		}
-		from = p;
-		Unit u = game.getUnitAt(p);
-		if (u == null) {
-			return;
-		}
-		figureSelected = editor.drawing().findFigure(x, y);
-		lastX = x;
-		lastY = y;
+		if (inWorld(p)) {
 		
+			from = p;
+			Unit u = game.getUnitAt(p);
+			if (u != null) {
+				figureSelected = editor.drawing().findFigure(x, y);
+				lastX = x;
+				lastY = y;
+			}
+		}
 	}
 	
 	public void mouseDrag(java.awt.event.MouseEvent e, 
 			int x, int y) {
-		figureSelected.moveBy(x-lastX, y-lastY);
-		lastX = x;
-		lastY = y;
+		if (figureSelected != null) {
+			figureSelected.moveBy(x-lastX, y-lastY);
+			lastX = x;
+			lastY = y;
+		}
 	}
 	
 	public void mouseUp(java.awt.event.MouseEvent e, 
 			int x, int y) {
-		Position to = GfxConstants.getPositionFromXY(x, y);
-		int finalX = GfxConstants.getXFromColumn(to.getColumn());
-		int finalY = GfxConstants.getYFromRow(to.getRow());
-		
-		figureSelected.moveBy(finalX-lastX, finalY - lastY);
-		if ( !inWorld(to) ) {
-			int startX = GfxConstants.getXFromColumn(from.getColumn());
-			int startY = GfxConstants.getYFromRow(from.getRow());
-			figureSelected.moveBy(startX - finalX, startY - finalY);
-		}
-		else if (!game.moveUnit(from, to)) {
-			int startX = GfxConstants.getXFromColumn(from.getColumn());
-			int startY = GfxConstants.getYFromRow(from.getRow());
-			figureSelected.moveBy(startX - finalX, startY - finalY);
+		if (figureSelected != null) {
+			
+			Position to = GfxConstants.getPositionFromXY(x, y);
+			int finalX = GfxConstants.getXFromColumn(to.getColumn());
+			int finalY = GfxConstants.getYFromRow(to.getRow());
+			
+			figureSelected.moveBy(finalX-lastX, finalY - lastY);
+			if ( !inWorld(to) ) {
+				int startX = GfxConstants.getXFromColumn(from.getColumn());
+				int startY = GfxConstants.getYFromRow(from.getRow());
+				figureSelected.moveBy(startX - finalX, startY - finalY);
+			}
+			else if (!game.moveUnit(from, to)) {
+				int startX = GfxConstants.getXFromColumn(from.getColumn());
+				int startY = GfxConstants.getYFromRow(from.getRow());
+				figureSelected.moveBy(startX - finalX, startY - finalY);
+			}
 		}
 		figureSelected = null;
 	}

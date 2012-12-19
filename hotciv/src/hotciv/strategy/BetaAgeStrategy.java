@@ -1,8 +1,5 @@
 package hotciv.strategy;
 
-
-
-
 public class BetaAgeStrategy implements AgeStrategy {
     public int calculateNextAge(int currentAge) {
         if (currentAge < -100) return currentAge+100;

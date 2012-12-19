@@ -247,11 +247,19 @@ HotCiv build management.
     		</java>
     	</target>
 	<!-- Test PeformActionTool -->
-	    	<target name="performAction" depends="build-all">
-	    		<java fork="yes" classname="hotciv.visual.TestPerformActionTool">
-	    			<classpath>
-	    				<path refid="class-path"/>
-	    			</classpath>
-	    		</java>
-	    	</target>
+	   <target name="performAction" depends="build-all">
+	   	<java fork="yes" classname="hotciv.visual.TestPerformActionTool">
+	   		<classpath>
+  				<path refid="class-path"/>
+	   		</classpath>
+	   	</java>
+	   </target>
+	
+	   <target name="multiToolTest" depends="build-all">
+	   	<java fork="yes" classname="hotciv.visual.TestMultiTool">
+	   		<classpath>
+				<path refid="class-path"/>
+	   		</classpath>
+	   	</java>
+	   </target>
 </project>

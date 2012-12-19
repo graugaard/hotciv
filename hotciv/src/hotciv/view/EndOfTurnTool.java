@@ -38,8 +38,9 @@ public class EndOfTurnTool extends NullTool {
 				&& GfxConstants.TURN_SHIELD_Y <= box.y + box.height;
 		
 		boolean turnShieldCovered = (xInRange && yInRange);
-		System.out.print(box);
+		
 		if (turnShieldCovered) {
+			System.out.println("I am ending this turn");
 			game.endOfTurn();
 		}
 	}

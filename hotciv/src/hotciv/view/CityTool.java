@@ -1,10 +1,9 @@
-package hotciv.visual;
+package hotciv.view;
 
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Position;
-import hotciv.view.GfxConstants;
 import minidraw.framework.DrawingEditor;
 import minidraw.framework.Figure;
 import minidraw.standard.NullTool;
@@ -13,8 +12,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 
-public class TestChangeMultiStub extends NullTool {
-    public TestChangeMultiStub(Game game, DrawingEditor editor){
+public class CityTool extends NullTool {
+    public CityTool(Game game, DrawingEditor editor){
         this.game = game;
         this.editor = editor;
     }

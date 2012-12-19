@@ -16,7 +16,9 @@ public class PerformActionTool extends NullTool {
 	}
 	
 	public void mouseDown(java.awt.event.MouseEvent e, int x, int y) {
-		selectedPosition = GfxConstants.getPositionFromXY(x, y);
+		if (e.isShiftDown()) {
+			selectedPosition = GfxConstants.getPositionFromXY(x, y);
+		}
 	}
 	
 	public void mouseUp(java.awt.event.MouseEvent e, int x, int y) {

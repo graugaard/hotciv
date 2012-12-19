@@ -225,6 +225,9 @@ public class GameImpl implements ExtendedGame {
             for(int j = 0; j < width; j++) {
                 if (units[i][j]!= null) {
                     units[i][j].setMoveCount(1);
+                    Unit u = units[i][j];
+                    System.out.println(u.getMoveCount());
+                    notifyWorldChangeAt(new Position(i,j));
                 }
             }
         }

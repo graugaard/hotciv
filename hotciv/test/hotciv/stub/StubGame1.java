@@ -114,4 +114,9 @@ public void setAgeStrategy(AgeStrategy useThisStrategy) {
 	// TODO Auto-generated method stub
 	
 }
+@Override
+public void notifyWorldChangeAt(Position p) {
+	// TODO Auto-generated method stub
+	
+}
 }
