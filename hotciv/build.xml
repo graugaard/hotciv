@@ -237,4 +237,13 @@ HotCiv build management.
 			</classpath>
 		</java>
 	</target>
+
+	<!-- Test ChangeTool -->
+    	<target name="change" depends="build-all">
+    		<java fork="yes" classname="hotciv.visual.TestChangeTool">
+    			<classpath>
+    				<path refid="class-path"/>
+    			</classpath>
+    		</java>
+    	</target>
 </project>

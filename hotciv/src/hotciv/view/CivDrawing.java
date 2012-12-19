@@ -158,13 +158,9 @@ public class CivDrawing extends StandardDrawing
         // insert in superclass figure list to ensure graphical
         // rendering.
         super.add(turnShieldIcon);
-        cityShieldIcon =
-                new ImageFigure(GfxConstants.NOTHING,
-                        new Point( GfxConstants.CITY_SHIELD_X, GfxConstants.CITY_SHIELD_Y));
-
+        cityShieldIcon = new ImageFigure();
         super.add(cityShieldIcon);
-        unitShieldIcon = new ImageFigure(GfxConstants.NOTHING,
-                new Point(GfxConstants.UNIT_SHIELD_X, GfxConstants.UNIT_SHIELD_Y));
+        unitShieldIcon = new ImageFigure();
         super.add(unitShieldIcon);
 
     }
@@ -194,16 +190,12 @@ public class CivDrawing extends StandardDrawing
 
     TextFigure moveCount = new TextFigure("",
             new Point(GfxConstants.UNIT_COUNT_X, GfxConstants.UNIT_COUNT_Y));
-    ImageFigure productionFocus = new ImageFigure(GfxConstants.NOTHING,
-            new Point(GfxConstants.CITY_PRODUCTION_X, GfxConstants.CITY_PRODUCTION_Y));
-    ImageFigure workForceFocus = new ImageFigure(GfxConstants.NOTHING,
-            new Point(GfxConstants.WORKFORCEFOCUS_X, GfxConstants.WORKFORCEFOCUS_Y));
+    ImageFigure productionFocus = new ImageFigure();
+    ImageFigure workForceFocus = new ImageFigure();
 
     public void tileFocusChangedAt(Position position) {
 
-
         if(game.getUnitAt(position) != null){
-
             productionFocus.set(GfxConstants.NOTHING,
                     new Point(GfxConstants.CITY_PRODUCTION_X, GfxConstants.CITY_PRODUCTION_Y));
             workForceFocus.set(GfxConstants.NOTHING,

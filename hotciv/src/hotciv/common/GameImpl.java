@@ -198,12 +198,14 @@ public class GameImpl implements ExtendedGame {
     	if ( c != null ) {
     		CityImpl city = (CityImpl) c;
     		city.setWorkforceFocus( balance );
+            notifyWorldChangeAt( p );
     	}
     }
     
     public void changeProductionInCityAt( Position p, String unitType ) {
         City c = getCityAt(p);
         c.setProduction(unitType);
+        notifyWorldChangeAt( p );
     }
     
     public void performUnitActionAt( Position p ) {
