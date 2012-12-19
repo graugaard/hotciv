@@ -210,4 +210,13 @@ HotCiv build management.
 			</classpath>
 		</java>
 	</target>
+	
+	<!-- Test move unit tool -->
+	<target name="move" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.TestMoveUnitTool">
+			<classpath>
+				<path refid="class-path"/>
+			</classpath>
+		</java>
+	</target>
 </project>
